@@ -1,0 +1,4984 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoCA Busan × Content Renewal — A Proposal by 689COMPANY</title>
+<meta name="description" content="부산현대미술관 SNS 콘텐츠 리뉴얼 제안서">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   RESET & BASE — Pretendard Only · No Italic · No Serif
+═══════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-style: normal !important;
+}
+
+:root {
+  --forest: #0E1F17;
+  --deep-green: #1A2F24;
+  --moss-dark: #2D4A3E;
+  --moss: #4A6B5C;
+  --sage: #7A9A87;
+  --sage-light: #A8C4A2;
+  --pale: #D9E4D1;
+  --cream: #F0EDE3;
+  --paper: #FAF8F1;
+  --ink: #0A0F0C;
+  --charcoal: #1F1F1F;
+  --grey: #6A6A6A;
+  --grey-light: #A0A0A0;
+  --line: #C8CFC2;
+  --line-light: #E5E8E0;
+  
+  --acid: #D4FF3E;
+  --rust: #B85C38;
+  --rust-light: #D97F5C;
+  
+  --sans-kr: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+  
+  --max-w: 1600px;
+}
+
+html {
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  color: var(--charcoal);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: none;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════════════════════════ */
+.cursor, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.cursor {
+  width: 8px;
+  height: 8px;
+  background: var(--cream);
+  border-radius: 50%;
+  transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--cream);
+  border-radius: 50%;
+  z-index: 9999;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              width 0.3s ease, height 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.cursor.hover {
+  width: 50px;
+  height: 50px;
+  background: var(--acid);
+}
+
+.cursor-ring.hover {
+  width: 70px;
+  height: 70px;
+  border-color: var(--acid);
+}
+
+@media (max-width: 1024px) {
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NOISE OVERLAY
+═══════════════════════════════════════════════════════════ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' /%3E%3C/svg%3E");
+}
+
+/* 영문 전용 태그 - 모노 */
+.mono {
+  font-family: var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOADER
+═══════════════════════════════════════════════════════════ */
+.loader {
+  position: fixed;
+  inset: 0;
+  background: var(--forest);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--cream);
+}
+
+.loader-line {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--sage);
+  text-transform: uppercase;
+  overflow: hidden;
+  height: 14px;
+  margin-bottom: 24px;
+}
+
+.loader-line span {
+  display: block;
+  animation: loader-text 2.4s ease forwards;
+}
+
+@keyframes loader-text {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-14px); }
+  60%  { transform: translateY(-28px); }
+  100% { transform: translateY(-42px); }
+}
+
+.loader-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(42px, 7vw, 96px);
+  color: var(--sage-light);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.loader-progress {
+  width: 200px;
+  height: 1px;
+  background: var(--moss-dark);
+  margin-top: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.loader-progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--acid);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: loader-fill 2.4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes loader-fill {
+  to { transform: scaleX(1); }
+}
+
+.loader.done {
+  animation: loader-exit 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes loader-exit {
+  to { transform: translateY(-100%); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  mix-blend-mode: difference;
+  color: var(--cream);
+  transition: transform 0.4s ease;
+}
+
+.nav-logo {
+  font-family: var(--sans-kr);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-menu a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.nav-menu a:hover { opacity: 0.5; }
+
+.nav-menu a .num {
+  color: var(--sage-light);
+  margin-right: 6px;
+  font-weight: 600;
+}
+
+.nav-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.nav-meta .live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--acid);
+  margin-right: 6px;
+  animation: pulse 2s ease-in-out infinite;
+  vertical-align: middle;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION TAG
+═══════════════════════════════════════════════════════════ */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--moss-dark);
+}
+
+.section-tag-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--acid);
+  display: inline-block;
+  position: relative;
+}
+
+.section-tag-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--acid);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  background: var(--forest);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 120px 40px 40px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 20%, var(--moss-dark) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 80%, var(--moss) 0%, transparent 50%);
+  opacity: 0.5;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(var(--moss-dark) 1px, transparent 1px),
+    linear-gradient(90deg, var(--moss-dark) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.12;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+
+.hero-orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--sage) 0%, transparent 70%);
+  top: -150px; right: -100px;
+  animation: orb-float-1 20s ease-in-out infinite;
+}
+
+.hero-orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--moss) 0%, transparent 70%);
+  bottom: -100px; left: 10%;
+  animation: orb-float-2 25s ease-in-out infinite;
+}
+
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-60px, 80px) scale(1.1); }
+}
+
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(100px, -60px) scale(0.9); }
+}
+
+.hero-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 60px;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sage-light);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  animation: fade-up 1s 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.hero-eyebrow::before {
+  content: "";
+  width: 40px;
+  height: 1px;
+  background: var(--sage-light);
+}
+
+.hero-year {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sage);
+  letter-spacing: 3px;
+  opacity: 0;
+  animation: fade-up 1s 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.hero-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 60px 0;
+}
+
+/* 
+  Hero Hook — 한글 강조 3축 시스템:
+  - 크기: 한 가지 크기 (clamp 52~160px)
+  - 굵기: 300(light) → 800(extrabold) 대비
+  - 색: cream(메인) → sage-light(서브) → acid(후킹 키워드)
+*/
+.hero-hook {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(52px, 8.8vw, 160px);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  color: var(--cream);
+  margin-bottom: 48px;
+}
+
+.hero-hook .line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-hook .line-inner {
+  display: block;
+  transform: translateY(105%);
+  animation: line-up 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.hero-hook .line:nth-child(1) .line-inner { animation-delay: 0.7s; }
+.hero-hook .line:nth-child(2) .line-inner { animation-delay: 0.85s; }
+.hero-hook .line:nth-child(3) .line-inner { animation-delay: 1.0s; }
+
+@keyframes line-up {
+  to { transform: translateY(0); }
+}
+
+.hero-hook .light {
+  font-weight: 300;
+  color: var(--sage-light);
+}
+
+.hero-hook .acid {
+  color: var(--acid);
+  position: relative;
+  display: inline-block;
+}
+
+.hero-hook .acid::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 100%;
+  height: 10px;
+  background: var(--acid);
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.hero-sub {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.75;
+  color: var(--pale);
+  max-width: 620px;
+  opacity: 0;
+  animation: fade-up 1.2s 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  letter-spacing: -0.005em;
+}
+
+.hero-sub strong {
+  font-weight: 700;
+  color: var(--cream);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-bottom {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 60px;
+  align-items: end;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-client {
+  opacity: 0;
+  animation: fade-up 1s 1.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.hero-client-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 10px;
+}
+
+.hero-client-name {
+  font-family: var(--sans-kr);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+}
+
+.hero-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  animation: fade-up 1s 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.hero-scroll-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: var(--sage);
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 60px;
+  background: var(--sage);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-scroll-line::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 30%;
+  background: var(--acid);
+  animation: scroll-line 2.5s ease-in-out infinite;
+}
+
+@keyframes scroll-line {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(400%); }
+}
+
+.hero-index {
+  text-align: right;
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--sage);
+  opacity: 0;
+  animation: fade-up 1s 2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  line-height: 2.2;
+}
+
+.hero-index a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  transition: color 0.3s ease;
+  letter-spacing: -0.005em;
+}
+
+.hero-index a:hover { color: var(--acid); }
+
+.hero-index .num {
+  color: var(--sage-light);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  margin-right: 8px;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════════════════════ */
+.ticker {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 0;
+  background: var(--acid);
+  color: var(--forest);
+  border-top: 1px solid var(--moss-dark);
+  border-bottom: 1px solid var(--moss-dark);
+}
+
+.ticker-track {
+  display: flex;
+  gap: 60px;
+  animation: ticker 40s linear infinite;
+  white-space: nowrap;
+}
+
+.ticker-item {
+  font-family: var(--sans-kr);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.ticker-item::after {
+  content: "✦";
+  color: var(--forest);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<div class="loader">
+  <div class="loader-line">
+    <span>Loading</span>
+    <span>Designing</span>
+    <span>Rendering</span>
+  </div>
+  <div class="loader-title">MoCA</div>
+  <div class="loader-progress"></div>
+</div>
+
+<nav class="nav">
+  <div class="nav-logo">Busan MoCA Renewal</div>
+  <div class="nav-menu">
+    <a href="#diagnosis"><span class="num">01</span>진단</a>
+    <a href="#global"><span class="num">02</span>해외</a>
+    <a href="#domestic"><span class="num">03</span>국내</a>
+    <a href="#direction"><span class="num">04</span>방향성</a>
+  </div>
+  <div class="nav-meta">
+    <div><span class="live-dot"></span>PROPOSAL · 2026</div>
+    <div>689 COMPANY</div>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  
+  <div class="hero-top">
+    <div class="hero-eyebrow">A Proposal for MoCA Busan</div>
+    <div class="hero-year">2026</div>
+  </div>
+  
+  <div class="hero-center">
+    <h1 class="hero-hook">
+      <span class="line"><span class="line-inner"><span class="light">수직정원을 가진</span></span></span>
+      <span class="line"><span class="line-inner">미술관, 피드는</span></span>
+      <span class="line"><span class="line-inner">왜 <span class="acid">포스터</span>뿐일까.</span></span>
+    </h1>
+    <p class="hero-sub">
+      부산현대미술관은 <strong>세계적 브랜드 자산을 가진 동시대 미술관</strong>입니다.<br>
+      그러나 SNS에서는 아직 그 자산이 보이지 않습니다.<br>
+      지금 우리가 제안하는 것은 — 피드의 다시 쓰기입니다.
+    </p>
+  </div>
+  
+  <div class="hero-bottom">
+    <div class="hero-client">
+      <div class="hero-client-label">Prepared for</div>
+      <div class="hero-client-name">부산현대미술관 · Busan Museum of Contemporary Art</div>
+    </div>
+    
+    <div class="hero-scroll">
+      <div class="hero-scroll-text">Scroll</div>
+      <div class="hero-scroll-line"></div>
+    </div>
+    
+    <div class="hero-index">
+      <a href="#diagnosis"><span class="num">01</span>진단 — 채널별 현황</a>
+      <a href="#global"><span class="num">02</span>해외 레퍼런스 × 5</a>
+      <a href="#domestic"><span class="num">03</span>국내 매거진형 포맷</a>
+      <a href="#direction"><span class="num">04</span>방향성 — 두 관객, 하나의 피드</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">수직정원을 스크롤 안으로</div>
+    <div class="ticker-item">From Posters to Stories</div>
+    <div class="ticker-item">Text Hip for Museums</div>
+    <div class="ticker-item">한 미술관, 두 관객</div>
+    <div class="ticker-item">Editorial × Interactive</div>
+    <div class="ticker-item">2026 Busan MoCA</div>
+    <div class="ticker-item">수직정원을 스크롤 안으로</div>
+    <div class="ticker-item">From Posters to Stories</div>
+    <div class="ticker-item">Text Hip for Museums</div>
+    <div class="ticker-item">한 미술관, 두 관객</div>
+    <div class="ticker-item">Editorial × Interactive</div>
+    <div class="ticker-item">2026 Busan MoCA</div>
+  </div>
+</div>
+
+<!-- ════════════════════ MANIFESTO ════════════════════ -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-inner">
+    <div class="manifesto-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Manifesto / 00</span>
+      </div>
+      <div class="manifesto-year">2026 Spring</div>
+    </div>
+    
+    <div class="manifesto-big">
+      <p>
+        공공기관의 <span class="manifesto-strike">공지</span>가 아니라,<br>
+        한 권의 <span class="manifesto-hl">매거진</span>처럼 —<br>
+        <span class="manifesto-bold">부산현대미술관의 SNS를<br>다시 짓습니다.</span>
+      </p>
+    </div>
+    
+    <div class="manifesto-grid">
+      <div class="manifesto-col">
+        <div class="manifesto-col-num">01</div>
+        <div class="manifesto-col-tag">진단</div>
+        <p>채널별로 지금 <strong>무엇이 빠져있는가</strong>를 정확히 들여다봅니다. 인스타, 유튜브, X, 페이스북 — 구조적 문제 3가지를 짚습니다.</p>
+      </div>
+      <div class="manifesto-col">
+        <div class="manifesto-col-num">02</div>
+        <div class="manifesto-col-tag">해외 × 5</div>
+        <p>MoMA · Rijksmuseum · Tate · LACMA · Nelson-Atkins. 세계 미술관들의 <strong>다섯 가지 SNS 문법</strong>과 부산모카에 적용할 점.</p>
+      </div>
+      <div class="manifesto-col">
+        <div class="manifesto-col-num">03</div>
+        <div class="manifesto-col-tag">국내 × 2</div>
+        <p>053mag · probit.mag. 지금 MZ가 팔로우하는 <strong>매거진형 인스타</strong>의 문법을 미술관에 이식하는 법.</p>
+      </div>
+      <div class="manifesto-col">
+        <div class="manifesto-col-num">04</div>
+        <div class="manifesto-col-tag">방향성</div>
+        <p>하나의 미술관이 <strong>두 관객</strong>(해외 미술 애호가 × 국내 MZ)을 동시에 끌어당기는 네 개의 콘텐츠 기둥.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   MANIFESTO
+═══════════════════════════════════════════════════════════ */
+.manifesto {
+  padding: 160px 40px 180px;
+  background: var(--paper);
+  position: relative;
+}
+
+.manifesto-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.manifesto-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 80px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.manifesto-year {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--moss);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.manifesto-big {
+  margin-bottom: 140px;
+}
+
+/* 한글 강조 3축 — 굵기(300→800) + 색(charcoal/acid/rust) + 크기(본체 유지) */
+.manifesto-big p {
+  font-family: var(--sans-kr);
+  font-weight: 300;
+  font-size: clamp(40px, 6vw, 104px);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  color: var(--charcoal);
+  max-width: 1400px;
+}
+
+.manifesto-strike {
+  font-weight: 400;
+  color: var(--grey);
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--rust);
+}
+
+.manifesto-hl {
+  font-weight: 800;
+  color: var(--forest);
+  background: linear-gradient(180deg, transparent 58%, var(--acid) 58%, var(--acid) 92%, transparent 92%);
+  padding: 0 0.08em;
+}
+
+.manifesto-bold {
+  font-weight: 800;
+  color: var(--forest);
+}
+
+.manifesto-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.manifesto-col {
+  padding: 48px 32px;
+  border-right: 1px solid var(--line);
+  position: relative;
+  transition: background 0.4s ease, color 0.4s ease;
+  cursor: none;
+}
+
+.manifesto-col:last-child { border-right: none; }
+
+.manifesto-col:hover {
+  background: var(--forest);
+}
+
+.manifesto-col:hover .manifesto-col-num { color: var(--acid); }
+.manifesto-col:hover .manifesto-col-tag { color: var(--cream); }
+.manifesto-col:hover p { color: var(--pale); }
+.manifesto-col:hover p strong { color: var(--acid); }
+
+.manifesto-col-num {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--sage);
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  transition: color 0.4s ease;
+}
+
+.manifesto-col-tag {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 32px;
+  color: var(--forest);
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  line-height: 1.15;
+  transition: color 0.4s ease;
+}
+
+.manifesto-col p {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--grey);
+  transition: color 0.4s ease;
+  letter-spacing: -0.005em;
+}
+
+.manifesto-col p strong {
+  font-weight: 700;
+  color: var(--charcoal);
+  transition: color 0.4s ease;
+}
+
+@media (max-width: 900px) {
+  .manifesto-grid { grid-template-columns: 1fr 1fr; }
+  .manifesto-col:nth-child(2) { border-right: none; }
+  .manifesto-col:nth-child(1), .manifesto-col:nth-child(2) { border-bottom: 1px solid var(--line); }
+}
+</style>
+
+
+<!-- ════════════════════ CHAPTER 01 · 진단 ════════════════════ -->
+<section class="chapter-divider" id="diagnosis">
+  <div class="chapter-divider-inner">
+    <div class="chapter-divider-top">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Chapter / 01</span>
+      </div>
+      <div class="chapter-num-big">01</div>
+    </div>
+    <h2 class="chapter-title">
+      <span class="reveal-line"><span>현재 채널의</span></span>
+      <span class="reveal-line"><span class="acid-word">진단</span></span>
+    </h2>
+    <p class="chapter-sub">
+      <strong>Where we are now.</strong><br>
+      부산현대미술관은 국내 보기 드문 미디어아트 전문 미술관입니다. 건물 외벽의 수직정원, 을숙도 자연 입지, 실험적 기획전. <strong>자산은 이미 세계 수준</strong>입니다. 그러나 SNS는 아직 그 자산을 <span class="sub-hl">공지의 언어</span>로만 말하고 있습니다.
+    </p>
+  </div>
+</section>
+
+<!-- 메인 채널 진단 -->
+<section class="diag-section">
+  <div class="diag-inner">
+    <div class="diag-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Diagnosis · Main Channels</span>
+      </div>
+      <h3 class="diag-head-title">메인 채널에 <span class="rust-hl">없는 것.</span></h3>
+    </div>
+    
+    <div class="diag-cards">
+      <div class="diag-card">
+        <div class="diag-card-top">
+          <div class="diag-card-icon">IG</div>
+          <div class="diag-card-info">
+            <div class="diag-card-name">Instagram</div>
+            <div class="diag-card-handle">@moca_busan</div>
+          </div>
+          <div class="diag-card-status">ACTIVE · NEEDS RENEWAL</div>
+        </div>
+        <ul class="diag-list">
+          <li>
+            <span class="diag-list-tag">FORMAT</span>
+            <div>
+              <strong>피드의 90%가 전시 포스터·공지</strong>
+              <p>스크롤을 멈출 후킹 요소가 없습니다. 미술관은 있지만 <em class="em-strong">'미술관의 목소리'</em>가 보이지 않습니다.</p>
+            </div>
+          </li>
+          <li>
+            <span class="diag-list-tag">REELS</span>
+            <div>
+              <strong>릴스·숏폼의 부재</strong>
+              <p>2025–2026 인스타의 확산 엔진은 릴스입니다. 정적인 이미지 위주 운영으로 알고리즘 도달이 제한됩니다.</p>
+            </div>
+          </li>
+          <li>
+            <span class="diag-list-tag">IDENTITY</span>
+            <div>
+              <strong>매거진으로서의 통일감 부족</strong>
+              <p>표지 카드, 타이포 시스템, 컬러 팔레트의 일관된 규칙이 약합니다. 공공기관 공지 톤이 반복됩니다.</p>
+            </div>
+          </li>
+          <li>
+            <span class="diag-list-tag">UGC</span>
+            <div>
+              <strong>참여형 해시태그 자산 없음</strong>
+              <p>관람객이 자발적으로 콘텐츠를 생산하게 만드는 시그니처 해시태그 캠페인이 존재하지 않습니다.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="diag-card">
+        <div class="diag-card-top">
+          <div class="diag-card-icon">YT</div>
+          <div class="diag-card-info">
+            <div class="diag-card-name">YouTube</div>
+            <div class="diag-card-handle">@BusanMoCA</div>
+          </div>
+          <div class="diag-card-status">PASSIVE · SINGLE-SHOT</div>
+        </div>
+        <ul class="diag-list">
+          <li>
+            <span class="diag-list-tag">SERIES</span>
+            <div>
+              <strong>시즌형 시리즈물의 부재</strong>
+              <p>업로드는 단발 영상 중심. 구독자가 '다음 편'을 기다리는 리텐션 구조가 설계되어 있지 않습니다.</p>
+            </div>
+          </li>
+          <li>
+            <span class="diag-list-tag">DEPTH</span>
+            <div>
+              <strong>큐레이터·아티스트의 얼굴이 없음</strong>
+              <p>전시는 있으나 전시를 만드는 사람의 관점이 없습니다. 관객은 작품을 <em class="em-strong">'사람의 이야기'</em>로 기억합니다.</p>
+            </div>
+          </li>
+          <li>
+            <span class="diag-list-tag">SHORTS</span>
+            <div>
+              <strong>쇼츠·릴스와의 연동 부재</strong>
+              <p>긴 영상 → 쇼츠 → 인스타 릴스로 내려오는 콘텐츠 퍼널이 설계되지 않아 플랫폼 간 시너지가 없습니다.</p>
+            </div>
+          </li>
+          <li>
+            <span class="diag-list-tag">GLOBAL</span>
+            <div>
+              <strong>영문 자막·국제 타겟팅 미흡</strong>
+              <p>한국어 단일 자막 위주. 해외 큐레이터·학생·미술 애호가에게 도달할 기회가 상실됩니다.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 서브 채널 -->
+<section class="diag-section sub-channels">
+  <div class="diag-inner">
+    <div class="diag-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Diagnosis · Sub Channels</span>
+      </div>
+      <h3 class="diag-head-title">서브 채널에 <span class="rust-hl">있는 것.</span> — 방치.</h3>
+      <p class="diag-head-sub">
+        X(트위터), 페이스북, 카카오채널, 블로그 — 링크트리에는 모두 등록되어 있지만 실제 운영은 거의 멈춰 있습니다. <strong>방치된 채널은 '사용하지 않는 채널'이 아니라 '브랜드 신뢰도를 깎는 채널'</strong>입니다.
+      </p>
+    </div>
+    
+    <div class="sub-channels-grid">
+      <div class="sub-channel">
+        <div class="sub-channel-icon">X</div>
+        <div class="sub-channel-name">X / Twitter</div>
+        <div class="sub-channel-handle">@MoCA_BUSAN</div>
+        <div class="sub-channel-desc">사실상 방치. 해외 큐레이터·저널이 활발히 사용하는 플랫폼 → <strong>영문 운영 시 글로벌 도달 잠재력</strong>이 큽니다.</div>
+      </div>
+      <div class="sub-channel">
+        <div class="sub-channel-icon">FB</div>
+        <div class="sub-channel-name">Facebook</div>
+        <div class="sub-channel-handle">busan.moca</div>
+        <div class="sub-channel-desc">인스타 미러링 수준. 페이스북 고유 기능(이벤트, 커뮤니티) 미활용. <strong>아카이빙용으로 재정의</strong> 권장.</div>
+      </div>
+      <div class="sub-channel">
+        <div class="sub-channel-icon">KB</div>
+        <div class="sub-channel-name">Kakao · Blog</div>
+        <div class="sub-channel-desc-handle">MoCA Busan</div>
+        <div class="sub-channel-desc">국내 중장년 관람객 접점. 텍스트 기반 자세한 전시 리뷰 콘텐츠 <strong>허브</strong>로 재설계 가능.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3가지 구조적 문제 -->
+<section class="issues-section">
+  <div class="diag-inner">
+    <div class="diag-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Diagnosis · Structural Issues</span>
+      </div>
+      <h3 class="diag-head-title">채널 전체를 관통하는 <span class="rust-hl">3가지 구조적 문제.</span></h3>
+    </div>
+    
+    <div class="issues-list">
+      <div class="issue-row">
+        <div class="issue-num">01</div>
+        <div class="issue-title">자산과 콘텐츠의 <span class="rust-word">괴리</span></div>
+        <div class="issue-body">
+          <p>부산현대미술관은 패트릭 블랑의 수직정원, 을숙도의 자연 입지, 미디어아트 중심의 기획력이라는 독보적 자산을 갖고 있습니다. 그러나 SNS에서는 이 자산이 거의 소비되지 않습니다. <strong>'자연·뉴미디어·인간'이라는 미술관의 공식 어젠다가 콘텐츠로 표현되지 않고 있습니다.</strong></p>
+          <div class="issue-quote">자산은 세계급, 콘텐츠는 공지급.</div>
+        </div>
+      </div>
+      
+      <div class="issue-row">
+        <div class="issue-num">02</div>
+        <div class="issue-title">플랫폼 간 <span class="rust-word">퍼널 부재</span></div>
+        <div class="issue-body">
+          <p>유튜브 긴 영상 → 쇼츠 → 인스타 릴스 → 피드 캐러셀로 내려오는 콘텐츠 퍼널이 설계되지 않았습니다. <strong>각 채널이 독립적으로 같은 공지를 반복 발행</strong>하는 구조로, 하나의 콘텐츠가 여러 플랫폼에 최적화된 형태로 재생산되지 않습니다.</p>
+          <div class="issue-quote">각자 따로 일하는 네 개의 채널.</div>
+        </div>
+      </div>
+      
+      <div class="issue-row">
+        <div class="issue-num">03</div>
+        <div class="issue-title">페르소나와 <span class="rust-word">목소리의 부재</span></div>
+        <div class="issue-body">
+          <p>콘텐츠에 사람이 없습니다. 큐레이터, 작가, 도슨트, 관람객 — 미술관을 구성하는 사람들의 시선과 목소리가 SNS에 거의 등장하지 않습니다. <strong>'공공기관 공지 톤'만 존재하며, 이는 관객이 미술관과 정서적으로 연결되는 지점을 원천 차단합니다.</strong></p>
+          <div class="issue-quote">미술관은 있는데, 사람이 안 보임.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   CHAPTER DIVIDER
+═══════════════════════════════════════════════════════════ */
+.chapter-divider {
+  padding: 180px 40px 140px;
+  background: var(--forest);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-divider::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, var(--moss-dark) 0%, transparent 40%);
+  opacity: 0.6;
+}
+
+.chapter-divider-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.chapter-divider .section-tag { color: var(--sage-light); }
+
+.chapter-divider-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+/* 챕터 대형 숫자 - 백그라운드 */
+.chapter-num-big {
+  font-family: var(--sans-kr);
+  font-weight: 900;
+  font-size: clamp(120px, 22vw, 360px);
+  line-height: 0.85;
+  color: var(--moss-dark);
+  letter-spacing: -0.08em;
+  position: absolute;
+  top: 120px;
+  right: 40px;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* 챕터 타이틀 - 한글 강조 3축: 굵기(800) + 색(cream→acid) + 크기(동일) */
+.chapter-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(60px, 12vw, 200px);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  color: var(--cream);
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 3;
+}
+
+.chapter-title .acid-word {
+  color: var(--acid);
+  position: relative;
+}
+
+.reveal-line {
+  display: block;
+  overflow: hidden;
+}
+
+.reveal-line > span {
+  display: block;
+  transform: translateY(105%);
+  transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal-line.revealed > span {
+  transform: translateY(0);
+}
+
+.chapter-sub {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.8;
+  color: var(--pale);
+  max-width: 900px;
+  position: relative;
+  z-index: 3;
+  letter-spacing: -0.005em;
+}
+
+.chapter-sub strong {
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.chapter-sub .sub-hl {
+  background: linear-gradient(180deg, transparent 58%, rgba(212, 255, 62, 0.2) 58%, rgba(212, 255, 62, 0.2) 92%, transparent 92%);
+  color: var(--acid);
+  font-weight: 600;
+  padding: 0 0.1em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DIAGNOSIS
+═══════════════════════════════════════════════════════════ */
+.diag-section {
+  padding: 140px 40px 100px;
+  background: var(--paper);
+}
+
+.diag-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.diag-head {
+  margin-bottom: 80px;
+  max-width: 1200px;
+}
+
+.diag-head .section-tag { margin-bottom: 32px; }
+
+/* 섹션 타이틀 - 한글 강조: 굵기(700-800) + 색(charcoal→rust) */
+.diag-head-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(44px, 6vw, 96px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--charcoal);
+  margin-bottom: 24px;
+}
+
+.rust-hl {
+  color: var(--rust);
+}
+
+.diag-head-sub {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: clamp(16px, 1.2vw, 19px);
+  line-height: 1.75;
+  color: var(--grey);
+  font-weight: 400;
+  max-width: 900px;
+  letter-spacing: -0.005em;
+}
+
+.diag-head-sub strong {
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.diag-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.diag-card {
+  background: var(--cream);
+  padding: 50px 44px;
+  border-radius: 4px;
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.diag-card:hover { transform: translateY(-4px); }
+
+.diag-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--rust);
+  opacity: 0.85;
+}
+
+.diag-card-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 28px;
+}
+
+.diag-card-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--acid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 18px;
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+
+.diag-card-info { flex: 1; }
+
+.diag-card-name {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--forest);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.diag-card-handle {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--moss);
+  letter-spacing: 1px;
+}
+
+.diag-card-status {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--rust);
+  text-align: right;
+  max-width: 140px;
+  line-height: 1.4;
+}
+
+.diag-list {
+  list-style: none;
+}
+
+.diag-list li {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px dashed var(--line);
+  align-items: start;
+}
+
+.diag-list li:last-child { border-bottom: none; padding-bottom: 0; }
+
+.diag-list-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--moss);
+  padding-top: 4px;
+}
+
+/* 리스트 강조 - 굵기(700) + 색(forest) */
+.diag-list strong {
+  display: block;
+  font-family: var(--sans-kr);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--forest);
+  margin-bottom: 8px;
+  letter-spacing: -0.015em;
+  line-height: 1.4;
+}
+
+.diag-list p {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--grey);
+  letter-spacing: -0.005em;
+}
+
+.em-strong {
+  font-weight: 600;
+  color: var(--rust);
+  font-style: normal !important;
+}
+
+/* Sub Channels */
+.sub-channels { padding-top: 60px; }
+
+.sub-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.sub-channel {
+  padding: 60px 40px;
+  border-right: 1px solid var(--line);
+  transition: background 0.4s ease;
+}
+
+.sub-channel:last-child { border-right: none; }
+
+.sub-channel:hover {
+  background: var(--forest);
+}
+
+.sub-channel:hover .sub-channel-icon { background: var(--acid); color: var(--forest); }
+.sub-channel:hover .sub-channel-name { color: var(--cream); }
+.sub-channel:hover .sub-channel-handle { color: var(--sage-light); }
+.sub-channel:hover .sub-channel-desc { color: var(--pale); }
+.sub-channel:hover .sub-channel-desc strong { color: var(--acid); }
+
+.sub-channel-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--moss-dark);
+  color: var(--sage-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 15px;
+  margin-bottom: 24px;
+  transition: background 0.4s ease, color 0.4s ease;
+  letter-spacing: -0.02em;
+}
+
+.sub-channel-name {
+  font-family: var(--sans-kr);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--forest);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  transition: color 0.4s ease;
+}
+
+.sub-channel-handle,
+.sub-channel-desc-handle {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--moss);
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  transition: color 0.4s ease;
+}
+
+.sub-channel-desc {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--grey);
+  letter-spacing: -0.005em;
+  transition: color 0.4s ease;
+}
+
+.sub-channel-desc strong {
+  font-weight: 700;
+  color: var(--forest);
+  transition: color 0.4s ease;
+}
+
+/* Issues - 구조적 문제 */
+.issues-section {
+  padding: 140px 40px 160px;
+  background: var(--cream);
+}
+
+.issues-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.issue-row {
+  display: grid;
+  grid-template-columns: 120px 1.2fr 2fr;
+  gap: 60px;
+  padding: 60px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+  transition: padding 0.5s ease;
+}
+
+.issue-row:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.issue-row:hover { padding-left: 20px; }
+
+.issue-num {
+  font-family: var(--sans-kr);
+  font-weight: 900;
+  font-size: 90px;
+  color: var(--sage);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  transition: color 0.4s ease;
+}
+
+.issue-row:hover .issue-num { color: var(--rust); }
+
+.issue-title {
+  font-family: var(--sans-kr);
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--forest);
+}
+
+.rust-word {
+  color: var(--rust);
+  font-weight: 800;
+}
+
+.issue-body p {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--grey);
+  margin-bottom: 24px;
+  letter-spacing: -0.005em;
+}
+
+.issue-body p strong {
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.issue-quote {
+  font-family: var(--sans-kr);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--rust);
+  padding-left: 24px;
+  border-left: 3px solid var(--rust);
+  letter-spacing: -0.015em;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .diag-cards { grid-template-columns: 1fr; }
+  .sub-channels-grid { grid-template-columns: 1fr; }
+  .sub-channel { border-right: none; border-bottom: 1px solid var(--line); }
+  .sub-channel:last-child { border-bottom: none; }
+  .issue-row { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+  .chapter-num-big { font-size: 120px; top: 80px; right: 20px; }
+}
+</style>
+
+
+<!-- ════════════════════ CHAPTER 02 · 해외 레퍼런스 ════════════════════ -->
+<section class="chapter-divider" id="global">
+  <div class="chapter-divider-inner">
+    <div class="chapter-divider-top">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Chapter / 02</span>
+      </div>
+      <div class="chapter-num-big">02</div>
+    </div>
+    <h2 class="chapter-title">
+      <span class="reveal-line"><span>해외 레퍼런스</span></span>
+      <span class="reveal-line"><span class="acid-word">다섯 개.</span></span>
+    </h2>
+    <p class="chapter-sub">
+      <strong>How the world's museums speak on social.</strong><br>
+      MoMA · Rijksmuseum · Tate · LACMA · Nelson-Atkins. 세계 주요 미술관들이 SNS에서 사용하는 <span class="sub-hl">다섯 가지 문법</span>을 통해, 부산현대미술관에 이식할 DNA를 가져옵니다.
+    </p>
+  </div>
+</section>
+
+<section class="refs-section">
+  <div class="refs-inner">
+    
+    <!-- REF 01: MoMA -->
+    <article class="ref-card" data-ref="01">
+      <div class="ref-card-inner">
+        <div class="ref-card-visual">
+          <div class="ref-card-badge">Premium Archive</div>
+          <div class="ref-card-logo">MoMA</div>
+          <div class="ref-card-location">New York<br>Museum of Modern Art</div>
+          <a href="https://www.instagram.com/themuseumofmodernart" target="_blank" rel="noopener" class="ref-card-instagram">
+            @themuseumofmodernart
+            <span class="arrow">↗</span>
+          </a>
+          <div class="ref-card-tag">
+            큐레이터·컨저베이터·아티스트.<br>
+            MoMA는 작품이 아니라<br>
+            <span class="tag-acid">사람</span>을 보여줍니다.
+          </div>
+          <div class="ref-card-num">01</div>
+        </div>
+        <div class="ref-card-body">
+          <div class="ref-card-meta">
+            <span class="ref-card-num-sm">REFERENCE / 01</span>
+            <span class="ref-card-type">PREMIUM ARCHIVE</span>
+          </div>
+          <h3 class="ref-card-title">사람이 <span class="ref-title-hl">작품을 만든다.</span></h3>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">FORMAT</div>
+            <h4>다큐멘터리 · 시연 · 아티스트 프로파일</h4>
+            <p>MoMA의 유튜브는 큐레이터와 아티스트의 시점에서 작품의 이면을 기록합니다. 설치 현장의 엔지니어부터 작품 옆을 지키는 경비원의 시선까지 — <strong>미술관을 구성하는 모든 사람의 목소리가 콘텐츠</strong>가 됩니다. 'MoMA Photo Club' 같은 릴스 기반 UGC도 함께 운영합니다.</p>
+          </div>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">WHY IT WORKS</div>
+            <h4>'사람의 이야기'는 알고리즘보다 기억에 남습니다</h4>
+            <p>관객은 전시를 본 기억이 아니라, 전시를 만든 사람에 대한 기억으로 미술관을 떠올립니다. <strong>리텐션과 재방문을 만드는 가장 강력한 콘텐츠 구조</strong>입니다.</p>
+          </div>
+          
+          <div class="ref-apply">
+            <div class="ref-apply-label">→ BUSAN MoCA APPLICATION</div>
+            <div class="ref-apply-text">
+              <strong>『MoCA Behind』 시리즈</strong><br>
+              전시 설치 · 작품 보존 · 큐레이터 인터뷰를 다큐 톤의 시즌제 유튜브 시리즈로
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    
+    <!-- REF 02: Rijksmuseum -->
+    <article class="ref-card" data-ref="02">
+      <div class="ref-card-inner">
+        <div class="ref-card-visual style-02">
+          <div class="ref-card-badge">Seasonal Series</div>
+          <div class="ref-card-logo">Rijks</div>
+          <div class="ref-card-location">Amsterdam<br>Rijksmuseum</div>
+          <a href="https://www.instagram.com/rijksmuseum" target="_blank" rel="noopener" class="ref-card-instagram">
+            @rijksmuseum
+            <span class="arrow">↗</span>
+          </a>
+          <div class="ref-card-tag">
+            수장고를 <span class="tag-acid">드라마</span>로.<br>
+            시즌제 · 에피소드 ·<br>
+            다음 편 기다림.
+          </div>
+          <div class="ref-card-num">02</div>
+        </div>
+        <div class="ref-card-body">
+          <div class="ref-card-meta">
+            <span class="ref-card-num-sm">REFERENCE / 02</span>
+            <span class="ref-card-type">SEASONAL SERIES</span>
+          </div>
+          <h3 class="ref-card-title">드라마처럼 <span class="ref-title-hl">시즌을 짜라.</span></h3>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">FORMAT</div>
+            <h4>Storage Stars · Rijksmuseum Sessions</h4>
+            <p>시그니처 시리즈 'Storage Stars'는 수장고 속 잘 보이지 않는 작품을 시즌제 다큐 포맷으로 풀어냅니다. 'Rijksmuseum Sessions'는 미술관 공간에서 음악가들이 즉흥 연주하는 시리즈로, <strong>무대 뒤 삶과 음악 퍼포먼스가 고정 시청자를 만듭니다.</strong></p>
+          </div>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">WHY IT WORKS</div>
+            <h4>'다음 편 대기' 구조는 구독 엔진입니다</h4>
+            <p>단발 영상은 조회수로 끝나지만, <strong>시즌제 시리즈는 구독자를 만듭니다.</strong> 에피소드 간 예고편과 세계관 연결은 유튜브 알고리즘이 가장 좋아하는 시청 패턴을 생성합니다.</p>
+          </div>
+          
+          <div class="ref-apply">
+            <div class="ref-apply-label">→ BUSAN MoCA APPLICATION</div>
+            <div class="ref-apply-text">
+              <strong>『소장품섬 시즌제』</strong><br>
+              매달 소장품 한 점을 집중 조명하는 15분 시리즈 + 음악가 · 예술가와의 즉흥 공연 시리즈
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    
+    <!-- REF 03: Tate -->
+    <article class="ref-card" data-ref="03">
+      <div class="ref-card-inner">
+        <div class="ref-card-visual style-03">
+          <div class="ref-card-badge">Human Perspective</div>
+          <div class="ref-card-logo">Tate</div>
+          <div class="ref-card-location">London<br>Tate Modern & Britain</div>
+          <a href="https://www.instagram.com/tate" target="_blank" rel="noopener" class="ref-card-instagram">
+            @tate
+            <span class="arrow">↗</span>
+          </a>
+          <div class="ref-card-tag">
+            "<span class="tag-acid">이 작품이</span><br>
+            당신에게<br>
+            어떤 의미입니까?"
+          </div>
+          <div class="ref-card-num">03</div>
+        </div>
+        <div class="ref-card-body">
+          <div class="ref-card-meta">
+            <span class="ref-card-num-sm">REFERENCE / 03</span>
+            <span class="ref-card-type">HUMAN PERSPECTIVE</span>
+          </div>
+          <h3 class="ref-card-title">작품이 아니라 <span class="ref-title-hl">관점을 묻는다.</span></h3>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">FORMAT</div>
+            <h4>인물 인터뷰 · 질문 기반 숏폼</h4>
+            <p>Tate는 문화계 인물, 작가, 일반 시민에게 <strong>"이 작품이 당신에게 의미하는 것은?"이라는 질문</strong>을 던지는 숏폼 시리즈를 운영합니다. 문화계 인물과의 인터뷰 영상을 통해 미술과 예술가가 그들에게 어떤 의미인지를 담아내며, 미술관의 벽을 넘어 컬렉션을 접근 가능한 방식으로 풀어냅니다.</p>
+          </div>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">WHY IT WORKS</div>
+            <h4>관점은 공감을, 공감은 공유를 만듭니다</h4>
+            <p>'작품 소개'는 정보지만, '누군가의 해석'은 이야기입니다. <strong>알고리즘이 확산시키는 것은 정보가 아니라 공감 가능한 이야기</strong>입니다. 작품은 사람의 관점을 통해 소셜에서 다시 태어납니다.</p>
+          </div>
+          
+          <div class="ref-apply">
+            <div class="ref-apply-label">→ BUSAN MoCA APPLICATION</div>
+            <div class="ref-apply-text">
+              <strong>『작품 앞의 10분』</strong><br>
+              부산 지역 예술가 · 큐레이터 · 일반 관람객의 1분 감상 인터뷰 릴스 시리즈
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    
+    <!-- REF 04: LACMA -->
+    <article class="ref-card" data-ref="04">
+      <div class="ref-card-inner">
+        <div class="ref-card-visual style-04">
+          <div class="ref-card-badge">Meme · UGC</div>
+          <div class="ref-card-logo">LACMA</div>
+          <div class="ref-card-location">Los Angeles<br>County Museum of Art</div>
+          <a href="https://www.instagram.com/lacma" target="_blank" rel="noopener" class="ref-card-instagram">
+            @lacma
+            <span class="arrow">↗</span>
+          </a>
+          <div class="ref-card-tag">
+            소장품을 <span class="tag-acid">밈으로</span>.<br>
+            관람객을 <span class="tag-acid">콘텐츠</span><br>
+            <span class="tag-acid">제작자로</span>.
+          </div>
+          <div class="ref-card-num">04</div>
+        </div>
+        <div class="ref-card-body">
+          <div class="ref-card-meta">
+            <span class="ref-card-num-sm">REFERENCE / 04</span>
+            <span class="ref-card-type">MEME · UGC</span>
+          </div>
+          <h3 class="ref-card-title">엄숙함을 <span class="ref-title-hl">깬다, 밈으로.</span></h3>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">FORMAT</div>
+            <h4>오리지널 밈 · 시그니처 해시태그</h4>
+            <p>LACMA는 자체 소장 작품으로 오리지널 밈을 제작해 미술관의 엄숙함을 깹니다. <strong>#DogsOfLACMA 해시태그</strong>를 통해 방문객이 반려견과 미술관 앞에서 찍은 사진을 공유하는 참여형 캠페인은 LACMA를 세계에서 가장 '놀 줄 아는' 미술관으로 만들었습니다.</p>
+          </div>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">WHY IT WORKS</div>
+            <h4>UGC는 광고비 없는 가장 강력한 확산입니다</h4>
+            <p>관람객이 스스로 해시태그를 달고 미술관 콘텐츠를 생산하게 만드는 순간, 미술관은 예산 없이 매일 새로운 콘텐츠를 얻습니다. 핵심은 <strong>'나도 참여하고 싶다'는 심리를 자극하는 시그니처 해시태그</strong>입니다.</p>
+          </div>
+          
+          <div class="ref-apply">
+            <div class="ref-apply-label">→ BUSAN MoCA APPLICATION</div>
+            <div class="ref-apply-text">
+              <strong>『#MoCA산책 · #을숙도모카』</strong><br>
+              수직정원과 옥상 레스토랑, 을숙도 풍경을 활용한 인증샷 해시태그 캠페인
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    
+    <!-- REF 05: Nelson-Atkins -->
+    <article class="ref-card" data-ref="05">
+      <div class="ref-card-inner">
+        <div class="ref-card-visual style-05">
+          <div class="ref-card-badge">Viral Event</div>
+          <div class="ref-card-logo">Nelson<br>Atkins</div>
+          <div class="ref-card-location">Kansas City<br>Nelson-Atkins Museum</div>
+          <a href="https://www.instagram.com/nelsonatkins" target="_blank" rel="noopener" class="ref-card-instagram">
+            @nelsonatkins
+            <span class="arrow">↗</span>
+          </a>
+          <div class="ref-card-tag">
+            미술관을 관람하는<br>
+            <span class="tag-acid">펭귄.</span><br>
+            한 번으로 충분했습니다.
+          </div>
+          <div class="ref-card-num">05</div>
+        </div>
+        <div class="ref-card-body">
+          <div class="ref-card-meta">
+            <span class="ref-card-num-sm">REFERENCE / 05</span>
+            <span class="ref-card-type">VIRAL EVENT</span>
+          </div>
+          <h3 class="ref-card-title">미술관에 <span class="ref-title-hl">예상 밖의 존재를 들인다.</span></h3>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">FORMAT</div>
+            <h4>원데이 바이럴 · 이벤트 콘텐츠</h4>
+            <p>2020년 5월, 팬데믹으로 문을 닫은 넬슨-애킨스 미술관이 캔자스시티 동물원의 펭귄들을 미술관에 들여 작품을 관람하게 하면서 인스타그램에서 바이럴을 일으킨 사례. <strong>딱 하루, 하나의 이벤트가 전 세계에 이 미술관의 이름을 알렸습니다.</strong></p>
+          </div>
+          
+          <div class="ref-block">
+            <div class="ref-block-label">WHY IT WORKS</div>
+            <h4>'예상 밖의 조합'은 알고리즘의 연료입니다</h4>
+            <p>미술관 + 동물, 미술관 + 아이, 미술관 + 장인 — 익숙한 공간에 예상 밖의 주체를 들이는 순간 콘텐츠는 자연스럽게 화제가 됩니다. <strong>큰 예산 없이도 가능한, 가장 비용 효율적인 바이럴 전략</strong>입니다.</p>
+          </div>
+          
+          <div class="ref-apply">
+            <div class="ref-apply-label">→ BUSAN MoCA APPLICATION</div>
+            <div class="ref-apply-text">
+              <strong>『을숙도 철새가 본 미술관』</strong><br>
+              철새 도래 시즌 연계 원데이 캠페인. 지역 자연 자산과 미술관을 연결하는 시그니처 이벤트
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    
+  </div>
+</section>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL REFERENCES
+═══════════════════════════════════════════════════════════ */
+.refs-section {
+  padding: 100px 40px 160px;
+  background: var(--paper);
+}
+
+.refs-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.ref-card {
+  margin-bottom: 120px;
+  opacity: 0;
+  transform: translateY(80px);
+  transition: opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ref-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ref-card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 0;
+  align-items: stretch;
+  min-height: 680px;
+}
+
+.ref-card:nth-child(even) .ref-card-inner {
+  grid-template-columns: 1.1fr 1fr;
+}
+
+.ref-card:nth-child(even) .ref-card-visual { order: 2; }
+
+.ref-card-visual {
+  background: var(--forest);
+  color: var(--cream);
+  padding: 70px 50px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ref-card-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 80% 20%, var(--moss-dark) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, var(--moss) 0%, transparent 40%);
+  opacity: 0.8;
+}
+
+.ref-card-visual.style-02::before {
+  background: 
+    radial-gradient(circle at 20% 20%, var(--moss-dark) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, var(--moss) 0%, transparent 40%);
+}
+
+.ref-card-visual.style-03::before {
+  background: 
+    radial-gradient(ellipse at 50% 0%, var(--moss-dark) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, var(--moss) 0%, transparent 40%);
+}
+
+.ref-card-visual.style-04::before {
+  background: 
+    radial-gradient(circle at 50% 50%, var(--moss-dark) 0%, transparent 60%);
+}
+
+.ref-card-visual.style-05::before {
+  background: 
+    radial-gradient(circle at 30% 30%, var(--moss) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, var(--moss-dark) 0%, transparent 40%);
+}
+
+.ref-card-visual > * { position: relative; z-index: 2; }
+
+.ref-card-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: var(--acid);
+  text-transform: uppercase;
+  border: 1px solid var(--acid);
+  padding: 10px 20px;
+  display: inline-block;
+  align-self: flex-start;
+  border-radius: 100px;
+}
+
+/* 미술관 로고 - 영문이므로 굵기 극대 */
+.ref-card-logo {
+  font-family: var(--sans-kr);
+  font-weight: 900;
+  font-size: clamp(60px, 6vw, 104px);
+  line-height: 0.95;
+  color: var(--cream);
+  letter-spacing: -0.045em;
+  margin: 40px 0 20px;
+}
+
+.ref-card-location {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sage-light);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.ref-card-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--acid);
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  padding: 8px 16px;
+  border: 1px solid var(--acid);
+  border-radius: 100px;
+  margin-bottom: 40px;
+  align-self: flex-start;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  cursor: none;
+}
+
+.ref-card-instagram::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--acid);
+  flex-shrink: 0;
+}
+
+.ref-card-instagram:hover {
+  background: var(--acid);
+  color: var(--forest);
+  transform: translateY(-2px);
+}
+
+.ref-card-instagram:hover::before {
+  background: var(--forest);
+}
+
+.ref-card-instagram .arrow {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.ref-card-instagram:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* 태그라인 - 한글 강조: 굵기(300 bg → 800 acid) */
+.ref-card-tag {
+  font-family: var(--sans-kr);
+  font-weight: 300;
+  font-size: clamp(22px, 1.9vw, 30px);
+  line-height: 1.5;
+  color: var(--pale);
+  max-width: 440px;
+  letter-spacing: -0.02em;
+}
+
+.tag-acid {
+  color: var(--acid);
+  font-weight: 800;
+}
+
+.ref-card-num {
+  position: absolute;
+  bottom: -50px;
+  right: 30px;
+  font-family: var(--sans-kr);
+  font-weight: 900;
+  font-size: 280px;
+  color: var(--moss);
+  opacity: 0.25;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  pointer-events: none;
+}
+
+.ref-card-body {
+  padding: 70px 60px;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ref-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 30px;
+}
+
+.ref-card-num-sm,
+.ref-card-type {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--moss);
+  text-transform: uppercase;
+}
+
+.ref-card-type { color: var(--rust); }
+
+/* 카드 타이틀 - 한글 강조 3축: 굵기(500→800) + 색(charcoal→forest) */
+.ref-card-title {
+  font-family: var(--sans-kr);
+  font-weight: 500;
+  font-size: clamp(34px, 3.5vw, 52px);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--charcoal);
+  margin-bottom: 44px;
+}
+
+.ref-title-hl {
+  font-weight: 800;
+  color: var(--forest);
+}
+
+.ref-block {
+  margin-bottom: 32px;
+}
+
+.ref-block-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--moss);
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.ref-block h4 {
+  font-family: var(--sans-kr);
+  font-weight: 700;
+  font-size: 21px;
+  color: var(--forest);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+}
+
+.ref-block p {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--grey);
+  letter-spacing: -0.005em;
+}
+
+.ref-block p strong {
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.ref-apply {
+  margin-top: 32px;
+  padding: 28px 32px;
+  background: var(--forest);
+  color: var(--cream);
+  border-left: 3px solid var(--acid);
+  position: relative;
+  overflow: hidden;
+}
+
+.ref-apply::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background: var(--acid);
+  opacity: 0.1;
+  border-radius: 50%;
+}
+
+.ref-apply-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--acid);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.ref-apply-text {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--pale);
+  position: relative;
+  letter-spacing: -0.005em;
+}
+
+.ref-apply-text strong {
+  display: block;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--cream);
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 900px) {
+  .ref-card-inner,
+  .ref-card:nth-child(even) .ref-card-inner {
+    grid-template-columns: 1fr;
+  }
+  .ref-card:nth-child(even) .ref-card-visual { order: 0; }
+  .ref-card-body { padding: 50px 30px; }
+  .ref-card-visual { padding: 50px 30px; }
+  .ref-card-num { font-size: 160px; bottom: -20px; }
+}
+</style>
+
+
+<!-- ════════════════════ CHAPTER 03 · 국내 매거진 ════════════════════ -->
+<section class="chapter-divider" id="domestic">
+  <div class="chapter-divider-inner">
+    <div class="chapter-divider-top">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Chapter / 03</span>
+      </div>
+      <div class="chapter-num-big">03</div>
+    </div>
+    <h2 class="chapter-title">
+      <span class="reveal-line"><span>국내 매거진형</span></span>
+      <span class="reveal-line"><span class="acid-word">포맷.</span></span>
+    </h2>
+    <p class="chapter-sub">
+      <strong>Text Hip generation.</strong><br>
+      해외 레퍼런스가 콘텐츠의 방향을 알려준다면, 국내 매거진형 인스타 계정들은 <span class="sub-hl">피드의 언어</span>를 알려줍니다. 지금 MZ 세대가 팔로우하는 것은 텍스트힙 — 사진과 글을 엮어 하나의 주제를 다루는 매거진형 인스타입니다.
+    </p>
+  </div>
+</section>
+
+<section class="domestic-section">
+  <div class="domestic-inner">
+    <div class="domestic-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Korean Reference Magazines</span>
+      </div>
+      <h3 class="domestic-head-title">MZ가 팔로우하는 <span class="forest-hl">두 가지 언어.</span></h3>
+      <p class="domestic-head-sub">
+        정보보다 감각, 공지보다 큐레이션. 053mag과 probit.mag은 각기 다른 방식으로 <strong>'매거진형 피드'의 정답</strong>을 보여주고 있습니다.
+      </p>
+    </div>
+    
+    <div class="mag-cards">
+      <article class="mag-card">
+        <div class="mag-card-top">
+          <a href="https://www.instagram.com/053mag" target="_blank" rel="noopener" class="mag-card-handle">@053mag ↗</a>
+          <div class="mag-card-tag">로컬 매거진</div>
+        </div>
+        <h4 class="mag-card-title">053mag</h4>
+        <div class="mag-card-subtitle">대구 로컬 매거진</div>
+        <p class="mag-card-concept">
+          대구(053 지역번호)라는 로컬 정체성을 매거진형 피드로 풀어내는 인스타그램 계정. 지역 공간 · 사람 · 문화를 큐레이션하며, <strong>'로컬'을 트렌디하게 번역하는 대표적인 포맷</strong>입니다.
+        </p>
+        <div class="mag-card-features">
+          <div class="mag-feature">
+            <div class="mag-feature-dot"></div>
+            <div class="mag-feature-content">
+              <strong>로컬리티 × 텍스트힙</strong>
+              <span>지역성을 힙하게 포장하는 타이포 중심 편집</span>
+            </div>
+          </div>
+          <div class="mag-feature">
+            <div class="mag-feature-dot"></div>
+            <div class="mag-feature-content">
+              <strong>통일된 그리드 시스템</strong>
+              <span>피드 3열이 한 권의 잡지처럼 보이는 디자인 규칙</span>
+            </div>
+          </div>
+          <div class="mag-feature">
+            <div class="mag-feature-dot"></div>
+            <div class="mag-feature-content">
+              <strong>장소 기반 큐레이션</strong>
+              <span>공간을 '여행하듯' 소개하는 구조 — 을숙도·수직정원에 그대로 이식 가능</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      
+      <article class="mag-card">
+        <div class="mag-card-top">
+          <a href="https://www.instagram.com/probit.mag" target="_blank" rel="noopener" class="mag-card-handle">@probit.mag ↗</a>
+          <div class="mag-card-tag">큐레이션 매거진</div>
+        </div>
+        <h4 class="mag-card-title">probit.mag</h4>
+        <div class="mag-card-subtitle">큐레이션 매거진</div>
+        <p class="mag-card-concept">
+          하나의 주제를 깊이 있게 파고드는 매거진형 인스타. 표지 – 본문 – 엔딩 카드의 일관된 구조로 <strong>캐러셀 한 장이 한 권의 책처럼 완결성</strong>을 갖춥니다.
+        </p>
+        <div class="mag-card-features">
+          <div class="mag-feature">
+            <div class="mag-feature-dot"></div>
+            <div class="mag-feature-content">
+              <strong>캐러셀 = 한 권의 책</strong>
+              <span>표지 · 본문 · 엔딩의 완결 구조로 저장률을 극대화</span>
+            </div>
+          </div>
+          <div class="mag-feature">
+            <div class="mag-feature-dot"></div>
+            <div class="mag-feature-content">
+              <strong>에디토리얼 타이포그래피</strong>
+              <span>매거진 타이포 규칙으로 피드의 격조 유지</span>
+            </div>
+          </div>
+          <div class="mag-feature">
+            <div class="mag-feature-dot"></div>
+            <div class="mag-feature-content">
+              <strong>깊이 있는 단일 주제</strong>
+              <span>표면적 정보가 아닌 '해석'을 제공 — 현대미술관에 가장 자연스럽게 맞는 언어</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Before / After -->
+<section class="transfer-section">
+  <div class="transfer-inner">
+    <div class="domestic-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Format Transfer</span>
+      </div>
+      <h3 class="domestic-head-title">피드에 <span class="forest-hl">매거진 문법</span>을 이식한다.</h3>
+      <p class="domestic-head-sub">
+        현재 부산현대미술관의 피드 구조를 매거진형 문법으로 전환할 때, 실제로 어떤 변화가 일어나는지를 비교합니다.
+      </p>
+    </div>
+    
+    <div class="transfer-grid">
+      <div class="transfer-col before">
+        <div class="transfer-col-head">
+          <div class="transfer-col-label">BEFORE · 현재</div>
+          <h4 class="transfer-col-title">공지의 언어</h4>
+        </div>
+        <ul class="transfer-list">
+          <li>
+            <span class="transfer-tag">01</span>
+            <div>
+              <strong>전시 포스터 그대로 업로드</strong>
+              <p>이미지 한 장 + 전시 정보 캡션. 스크롤을 멈출 이유가 없습니다.</p>
+            </div>
+          </li>
+          <li>
+            <span class="transfer-tag">02</span>
+            <div>
+              <strong>단편적 정보 중심</strong>
+              <p>"언제, 어디서, 무엇을"만 전달. 해석 · 관점 · 이야기가 없습니다.</p>
+            </div>
+          </li>
+          <li>
+            <span class="transfer-tag">03</span>
+            <div>
+              <strong>일관성 없는 디자인</strong>
+              <p>전시마다 다른 톤의 포스터가 혼재해 피드 전체의 정체성이 흐려집니다.</p>
+            </div>
+          </li>
+          <li>
+            <span class="transfer-tag">04</span>
+            <div>
+              <strong>공공기관 공지 톤</strong>
+              <p>무미건조한 발신자 목소리. 팔로워가 저장하거나 공유할 이유가 없습니다.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="transfer-arrow-col">
+        <div class="transfer-arrow">→</div>
+        <div class="transfer-arrow-label">매거진형<br>이식</div>
+      </div>
+      
+      <div class="transfer-col after">
+        <div class="transfer-col-head">
+          <div class="transfer-col-label">AFTER · 매거진형 이식</div>
+          <h4 class="transfer-col-title">큐레이션의 언어</h4>
+        </div>
+        <ul class="transfer-list">
+          <li>
+            <span class="transfer-tag">01</span>
+            <div>
+              <strong>표지 → 본문 → 엔딩 캐러셀</strong>
+              <p>probit.mag 구조 차용. 10장 캐러셀 한 세트가 '작은 매거진 한 호'.</p>
+            </div>
+          </li>
+          <li>
+            <span class="transfer-tag">02</span>
+            <div>
+              <strong>해석 · 관점 · 이야기 중심</strong>
+              <p>"이 작품은 왜 지금 봐야 하는가", "작가는 무엇을 말하려 했는가".</p>
+            </div>
+          </li>
+          <li>
+            <span class="transfer-tag">03</span>
+            <div>
+              <strong>통일된 에디토리얼 시스템</strong>
+              <p>고정 타이포·그린 톤온톤 컬러·고정 그리드로 피드 전체가 한 권의 잡지.</p>
+            </div>
+          </li>
+          <li>
+            <span class="transfer-tag">04</span>
+            <div>
+              <strong>큐레이터의 목소리</strong>
+              <p>1인칭 관점의 큐레이션. "우리는 이 전시를 이렇게 봤습니다"의 화법.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DOMESTIC
+═══════════════════════════════════════════════════════════ */
+.domestic-section {
+  padding: 140px 40px 100px;
+  background: var(--paper);
+}
+
+.domestic-inner,
+.transfer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.domestic-head {
+  margin-bottom: 80px;
+  max-width: 1200px;
+}
+
+.domestic-head .section-tag { margin-bottom: 32px; }
+
+.domestic-head-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(44px, 6vw, 96px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--charcoal);
+  margin-bottom: 24px;
+}
+
+.forest-hl {
+  color: var(--forest);
+}
+
+.domestic-head-sub {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: clamp(16px, 1.2vw, 19px);
+  line-height: 1.75;
+  color: var(--grey);
+  max-width: 900px;
+  letter-spacing: -0.005em;
+}
+
+.domestic-head-sub strong {
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.mag-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.mag-card {
+  background: var(--cream);
+  padding: 60px 50px;
+  border-radius: 4px;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.6s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mag-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--acid);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mag-card.revealed::before { transform: scaleX(1); }
+
+.mag-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(14, 31, 23, 0.15);
+}
+
+.mag-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.mag-card-handle {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--moss);
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.mag-card-handle:hover {
+  color: var(--forest);
+}
+
+.mag-card-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--rust);
+  padding: 6px 14px;
+  border: 1px solid var(--rust);
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+.mag-card-title {
+  font-family: var(--sans-kr);
+  font-weight: 900;
+  font-size: clamp(56px, 5vw, 80px);
+  line-height: 1;
+  color: var(--forest);
+  letter-spacing: -0.04em;
+  margin-bottom: 6px;
+}
+
+.mag-card-subtitle {
+  font-family: var(--sans-kr);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--moss);
+  margin-bottom: 30px;
+  letter-spacing: -0.01em;
+}
+
+.mag-card-concept {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--grey);
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--line);
+  letter-spacing: -0.005em;
+}
+
+.mag-card-concept strong {
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.mag-card-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mag-feature {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.mag-feature-dot {
+  width: 8px; height: 8px;
+  background: var(--forest);
+  border-radius: 50%;
+  margin-top: 10px;
+  flex-shrink: 0;
+  transition: background 0.3s ease;
+}
+
+.mag-card:hover .mag-feature-dot { background: var(--acid); }
+
+.mag-feature-content strong {
+  display: block;
+  font-family: var(--sans-kr);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--forest);
+  margin-bottom: 4px;
+  letter-spacing: -0.015em;
+}
+
+.mag-feature-content span {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--grey);
+  letter-spacing: -0.005em;
+}
+
+/* Transfer Before/After */
+.transfer-section {
+  padding: 140px 40px 160px;
+  background: var(--cream);
+}
+
+.transfer-grid {
+  display: grid;
+  grid-template-columns: 1fr 140px 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-top: 60px;
+}
+
+.transfer-col {
+  padding: 50px 40px;
+  background: var(--paper);
+  border-radius: 4px;
+  position: relative;
+}
+
+.transfer-col.before { border-top: 4px solid var(--rust); }
+.transfer-col.after {
+  background: var(--forest);
+  color: var(--cream);
+  border-top: 4px solid var(--acid);
+}
+
+.transfer-col-head {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.transfer-col.after .transfer-col-head { border-bottom-color: var(--moss-dark); }
+
+.transfer-col-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--moss);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.transfer-col.before .transfer-col-label { color: var(--rust); }
+.transfer-col.after .transfer-col-label { color: var(--acid); }
+
+.transfer-col-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(32px, 3vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.transfer-col.before .transfer-col-title { color: var(--rust); }
+.transfer-col.after .transfer-col-title { color: var(--cream); }
+
+.transfer-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.transfer-list li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.transfer-tag {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 16px;
+  padding-top: 2px;
+  letter-spacing: 1px;
+}
+
+.transfer-col.before .transfer-tag { color: var(--rust); }
+.transfer-col.after .transfer-tag { color: var(--acid); }
+
+.transfer-list strong {
+  display: block;
+  font-family: var(--sans-kr);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.transfer-col.before strong { color: var(--forest); }
+.transfer-col.after strong { color: var(--cream); }
+
+.transfer-list p {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+}
+
+.transfer-col.before p { color: var(--grey); }
+.transfer-col.after p { color: var(--pale); }
+
+.transfer-arrow-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  gap: 20px;
+}
+
+.transfer-arrow {
+  font-family: var(--sans-kr);
+  font-weight: 300;
+  font-size: 72px;
+  color: var(--moss);
+  line-height: 1;
+  animation: arrow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes arrow-pulse {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+
+.transfer-arrow-label {
+  font-family: var(--sans-kr);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--moss);
+  text-align: center;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 900px) {
+  .mag-cards { grid-template-columns: 1fr; }
+  .transfer-grid { grid-template-columns: 1fr; }
+  .transfer-arrow-col { padding-top: 20px; flex-direction: row; }
+}
+</style>
+
+
+<!-- ════════════════════ CHAPTER 04 · 방향성 ════════════════════ -->
+<section class="chapter-divider" id="direction">
+  <div class="chapter-divider-inner">
+    <div class="chapter-divider-top">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Chapter / 04</span>
+      </div>
+      <div class="chapter-num-big">04</div>
+    </div>
+    <h2 class="chapter-title">
+      <span class="reveal-line"><span>글로벌 × 국내.</span></span>
+      <span class="reveal-line"><span>두 관객을 <span class="acid-word">동시에.</span></span></span>
+    </h2>
+    <p class="chapter-sub">
+      <strong>One museum, two audiences.</strong><br>
+      부산현대미술관은 지금까지 주로 국내 관람객을 향해 말해왔습니다. 그러나 미디어아트·뉴미디어 중심이라는 미술관의 정체성은 <span class="sub-hl">국경을 초월하는 언어</span>입니다. 글로벌 미술 애호가와 국내 MZ 세대를 동시에 끌어당기는 단 하나의 콘텐츠 전략.
+    </p>
+  </div>
+</section>
+
+<!-- 4 Pillars -->
+<section class="pillars-section">
+  <div class="pillars-inner">
+    <div class="domestic-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>Four Content Pillars</span>
+      </div>
+      <h3 class="domestic-head-title">부산현대미술관의 <span class="forest-hl">네 기둥.</span></h3>
+      <p class="domestic-head-sub">
+        해외 레퍼런스와 국내 매거진 포맷을 종합하여, <strong>글로벌 고객과 국내 고객을 동시에 끌어당기는 네 개의 콘텐츠 축</strong>을 정의합니다.
+      </p>
+    </div>
+    
+    <div class="pillars-grid">
+      <article class="pillar pillar-main">
+        <div class="pillar-num">PILLAR / 01</div>
+        <div class="pillar-label">SIGNATURE</div>
+        <h4 class="pillar-title">수직정원 시그니처</h4>
+        <div class="pillar-en">The Vertical Garden Magazine</div>
+        <p class="pillar-desc">
+          패트릭 블랑의 수직정원과 을숙도의 자연 입지를 정면에 세운 매거진형 캐러셀 시리즈. probit.mag 구조 × 그린 톤온톤. <strong>'자연·뉴미디어·인간'이라는 미술관 공식 어젠다의 시각적 번역.</strong>
+        </p>
+        <div class="pillar-tags">
+          <span>IG Carousel</span>
+          <span>주 1회</span>
+          <span>Bilingual</span>
+        </div>
+      </article>
+      
+      <article class="pillar">
+        <div class="pillar-num">PILLAR / 02</div>
+        <div class="pillar-label">DEPTH</div>
+        <h4 class="pillar-title">소장품섬 시즌제</h4>
+        <div class="pillar-en">The Storage Stars, Busan Edition</div>
+        <p class="pillar-desc">
+          Rijksmuseum 'Storage Stars' 포맷을 차용한 시즌제 유튜브 시리즈. 매달 소장품 한 점을 집중 조명. <strong>영문 자막 기본 탑재 → 글로벌 큐레이터·미술학도 대상 진입점.</strong>
+        </p>
+        <div class="pillar-tags">
+          <span>YouTube Series</span>
+          <span>월 2회</span>
+          <span>영문자막</span>
+        </div>
+      </article>
+      
+      <article class="pillar">
+        <div class="pillar-num">PILLAR / 03</div>
+        <div class="pillar-label">HUMAN</div>
+        <h4 class="pillar-title">작품 앞의 10분</h4>
+        <div class="pillar-en">Ten Minutes in Front of a Work</div>
+        <p class="pillar-desc">
+          Tate 인터뷰 포맷 × MoMA 사람 중심 다큐 톤. 부산 지역 예술가·큐레이터·시민·해외 방문객의 1분 감상 인터뷰 릴스. <strong>바이링구얼 콘텐츠로 국경을 허뭅니다.</strong>
+        </p>
+        <div class="pillar-tags">
+          <span>Reels · Shorts</span>
+          <span>주 1회</span>
+          <span>Bilingual</span>
+        </div>
+      </article>
+      
+      <article class="pillar">
+        <div class="pillar-num">PILLAR / 04</div>
+        <div class="pillar-label">PARTICIPATION</div>
+        <h4 class="pillar-title">#MoCA산책</h4>
+        <div class="pillar-en">Promenade at MoCA Busan</div>
+        <p class="pillar-desc">
+          LACMA · Nelson-Atkins 포맷을 융합한 UGC 캠페인. 수직정원·옥상 레스토랑·을숙도 풍경을 배경으로 한 시그니처 해시태그. <strong>시즌 이벤트(철새 도래·수직정원 변화)와 연계.</strong>
+        </p>
+        <div class="pillar-tags">
+          <span>Hashtag UGC</span>
+          <span>상시 + 시즌</span>
+          <span>Viral</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Audience Map -->
+<section class="audience-section">
+  <div class="audience-inner">
+    <div class="domestic-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>One Museum, Two Audiences</span>
+      </div>
+      <h3 class="domestic-head-title">두 관객을 <span class="forest-hl">동시에 끌어당기는 법.</span></h3>
+      <p class="domestic-head-sub">
+        같은 콘텐츠가 다른 입구로 들어온 관객에게 각기 다르게 작동해야 합니다. <strong>네 기둥이 글로벌과 국내 관객에게 어떻게 말을 거는지</strong>를 정리합니다.
+      </p>
+    </div>
+    
+    <div class="audience-grid">
+      <article class="audience-card global">
+        <div class="audience-flag">GLOBAL AUDIENCE</div>
+        <h4 class="audience-title">해외 미술 애호가<br>· 큐레이터 · 학생</h4>
+        <div class="audience-sub">Reaching the international art world</div>
+        
+        <div class="audience-blocks">
+          <div class="audience-block">
+            <div class="audience-block-label">Entry Point</div>
+            <p><strong>유튜브 영문자막 시즌제 + 인스타 바이링구얼 캐러셀.</strong> 언어 장벽을 없애고, 뉴미디어·미디어아트라는 국제적으로 통용되는 주제로 세계 미술계 접점 확보.</p>
+          </div>
+          <div class="audience-block">
+            <div class="audience-block-label">Messaging</div>
+            <p>"한국 유일의 뉴미디어·미디어아트 전문 미술관" 포지셔닝. <strong>BusanMoCA Platform</strong>과 같은 실험적 기획전을 국제 미술 담론의 맥락에서 소개.</p>
+          </div>
+          <div class="audience-block">
+            <div class="audience-block-label">Goal</div>
+            <p>해외 큐레이터·미술학도가 '부산 방문 리스트'에 올리는 미술관. <strong>국제 레지던시·협업의 시작점</strong>이 되는 디지털 명함.</p>
+          </div>
+        </div>
+      </article>
+      
+      <article class="audience-card domestic">
+        <div class="audience-flag">DOMESTIC AUDIENCE</div>
+        <h4 class="audience-title">국내 MZ · 문화<br>감도 높은 층</h4>
+        <div class="audience-sub">Speaking to the Text Hip generation</div>
+        
+        <div class="audience-blocks">
+          <div class="audience-block">
+            <div class="audience-block-label">Entry Point</div>
+            <p><strong>매거진형 인스타 캐러셀 + #MoCA산책 UGC 캠페인.</strong> 053mag·probit.mag이 증명한 텍스트힙 문법으로 저장·공유·방문의 동선 설계.</p>
+          </div>
+          <div class="audience-block">
+            <div class="audience-block-label">Messaging</div>
+            <p>"부산에서 가장 감도 높은 공간" 로컬 포지셔닝. 수직정원·옥상 레스토랑·을숙도 산책로를 <strong>'가서 찍고 저장하고 싶은 공간'</strong>으로 재브랜딩.</p>
+          </div>
+          <div class="audience-block">
+            <div class="audience-block-label">Goal</div>
+            <p>MZ가 주말 계획에 올리는 미술관. <strong>인스타 저장·공유·실방문</strong>으로 이어지는 소셜 퍼널의 완성.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Tone & Manner -->
+<section class="tone-section">
+  <div class="audience-inner">
+    <div class="domestic-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>The Voice That Ties It All Together</span>
+      </div>
+      <h3 class="domestic-head-title">모든 콘텐츠를 하나로 묶는 <span class="forest-hl">목소리.</span></h3>
+      <p class="domestic-head-sub">
+        네 개의 기둥을 하나의 미술관으로 보이게 하는 것은 결국 '톤'입니다. <strong>부산현대미술관의 목소리를 정의</strong>합니다.
+      </p>
+    </div>
+    
+    <div class="tone-grid">
+      <div class="tone-card">
+        <div class="tone-num">01 / COLOR</div>
+        <h4 class="tone-title">그린 톤온톤</h4>
+        <div class="tone-subtitle">Forest × Sage × Moss</div>
+        <p class="tone-desc">
+          미술관의 상징색인 그린을 3단계(딥 포레스트·세이지·라이트 모스)로 확장한 톤온톤 시스템. <strong>수직정원과 을숙도의 자연 감각을 디지털 언어로.</strong>
+        </p>
+        <div class="tone-swatches">
+          <div class="swatch" style="background: #0E1F17;" data-code="Forest"></div>
+          <div class="swatch" style="background: #4A6B5C;" data-code="Moss"></div>
+          <div class="swatch" style="background: #A8C4A2;" data-code="Sage"></div>
+          <div class="swatch" style="background: #D4FF3E;" data-code="Acid"></div>
+        </div>
+      </div>
+      
+      <div class="tone-card">
+        <div class="tone-num">02 / TYPOGRAPHY</div>
+        <h4 class="tone-title">단일 시스템</h4>
+        <div class="tone-subtitle">Pretendard × Mono</div>
+        <p class="tone-desc">
+          한글은 Pretendard 하나로 통일. 굵기(300→900)만으로 위계를 완성. <strong>영문 태그는 JetBrains Mono로 에디토리얼 악센트.</strong>
+        </p>
+        <div class="tone-type-demo">
+          <div class="type-sample weight-900">Pretendard 900</div>
+          <div class="type-sample weight-500">Pretendard 500</div>
+          <div class="type-sample weight-300">Pretendard 300</div>
+          <div class="type-mono">JETBRAINS MONO</div>
+        </div>
+      </div>
+      
+      <div class="tone-card">
+        <div class="tone-num">03 / VOICE</div>
+        <h4 class="tone-title">큐레이션의 목소리</h4>
+        <div class="tone-subtitle">First-person, not announcement</div>
+        <p class="tone-desc">
+          공공기관의 공지 화법을 버리고, <strong>큐레이터의 1인칭 관점으로 이야기하는 목소리</strong>로 전면 전환.
+        </p>
+        <div class="tone-voice">
+          <div class="voice-before">
+            <span class="voice-icon">✗</span>
+            <span class="voice-text">"~을 안내드립니다."</span>
+          </div>
+          <div class="voice-after">
+            <span class="voice-icon">✓</span>
+            <span class="voice-text">"우리는 이 전시를 이렇게 봤습니다."</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ OPERATION PROPOSAL ════════════════════ -->
+<section class="operation-section">
+  <div class="audience-inner">
+    <div class="domestic-head">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>How We Operate</span>
+      </div>
+      <h3 class="domestic-head-title operation-title">하나의 미술관, <span class="acid-hl">네 개의 채널.</span></h3>
+      <p class="domestic-head-sub operation-sub">
+        듀얼 오디언스(국내 × 글로벌)를 동시에 끌어안기 위해, <strong>인스타그램과 유튜브를 각각 2채널로 분리 운영</strong>합니다. 콘텐츠는 한 번 제작해 채널 간 미러링으로 순환시키고, 이벤트·캠페인에는 롱폼 기획이 별도로 얹힙니다.
+      </p>
+    </div>
+    
+    <!-- 채널 운영 매트릭스 -->
+    <div class="op-matrix">
+      <div class="op-platform">
+        <div class="op-platform-head">
+          <div class="op-platform-icon">IG</div>
+          <div class="op-platform-info">
+            <h4 class="op-platform-name">Instagram</h4>
+            <div class="op-platform-desc">매거진형 피드 · 릴스 · UGC 진입점</div>
+          </div>
+          <div class="op-platform-count">2 CHANNELS</div>
+        </div>
+        
+        <div class="op-channels">
+          <div class="op-channel domestic">
+            <div class="op-channel-flag">KR · Domestic</div>
+            <div class="op-channel-handle">@moca_busan</div>
+            <div class="op-channel-desc">
+              기존 메인 계정. 한국어 중심. <strong>053mag · probit.mag 문법</strong>의 매거진형 캐러셀 + 릴스. 국내 MZ 타겟 #MoCA산책 UGC 허브.
+            </div>
+            <div class="op-channel-tags">
+              <span>매거진 캐러셀</span>
+              <span>한국어</span>
+              <span>UGC</span>
+            </div>
+          </div>
+          
+          <div class="op-channel global">
+            <div class="op-channel-flag">EN · Global</div>
+            <div class="op-channel-handle">@mocabusan.en <span class="op-channel-new">NEW</span></div>
+            <div class="op-channel-desc">
+              신규 글로벌 계정. 영문 전용. <strong>MoMA · Tate 톤</strong>의 큐레이터 보이스 + 작품 단독 시리즈. 해외 큐레이터 · 미술학도 · 아트 저널 타겟.
+            </div>
+            <div class="op-channel-tags">
+              <span>English Only</span>
+              <span>Curator Voice</span>
+              <span>International</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="op-platform">
+        <div class="op-platform-head">
+          <div class="op-platform-icon">YT</div>
+          <div class="op-platform-info">
+            <h4 class="op-platform-name">YouTube</h4>
+            <div class="op-platform-desc">시즌제 롱폼 · 쇼츠 · 캠페인 기획물</div>
+          </div>
+          <div class="op-platform-count">2 CHANNELS</div>
+        </div>
+        
+        <div class="op-channels">
+          <div class="op-channel domestic">
+            <div class="op-channel-flag">KR · Domestic</div>
+            <div class="op-channel-handle">@BusanMoCA</div>
+            <div class="op-channel-desc">
+              기존 메인 채널. 한국어 중심. 『소장품섬 시즌제』 + 『MoCA Behind』 시리즈. <strong>인스타 릴스와 미러링 업로드</strong>로 플랫폼 간 도달 극대화.
+            </div>
+            <div class="op-channel-tags">
+              <span>시즌 시리즈</span>
+              <span>한국어</span>
+              <span>Reels Mirror</span>
+            </div>
+          </div>
+          
+          <div class="op-channel global">
+            <div class="op-channel-flag">EN · Global</div>
+            <div class="op-channel-handle">@BusanMoCA.Global <span class="op-channel-new">NEW</span></div>
+            <div class="op-channel-desc">
+              신규 글로벌 채널. 영문자막 전용. 동일 콘텐츠 영문 버전 + <strong>해외 큐레이터 인터뷰 · 국제 레지던시 다큐</strong> 별도 기획. Shorts 미러링.
+            </div>
+            <div class="op-channel-tags">
+              <span>English Subtitles</span>
+              <span>Residency Doc</span>
+              <span>Shorts Mirror</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 미러링 시스템 -->
+    <div class="op-block">
+      <div class="op-block-head">
+        <div class="op-block-num">01</div>
+        <div class="op-block-title-wrap">
+          <div class="op-block-label">Mirror System · 미러링 구조</div>
+          <h4 class="op-block-title">한 번 만든 콘텐츠, <span class="op-hl">네 곳에서 순환.</span></h4>
+        </div>
+      </div>
+      
+      <div class="op-mirror-flow">
+        <div class="mirror-step">
+          <div class="mirror-step-num">01</div>
+          <div class="mirror-step-label">YT 롱폼</div>
+          <div class="mirror-step-desc">15분 다큐 원본<br>시즌제 에피소드</div>
+        </div>
+        <div class="mirror-arrow">→</div>
+        <div class="mirror-step">
+          <div class="mirror-step-num">02</div>
+          <div class="mirror-step-label">YT Shorts</div>
+          <div class="mirror-step-desc">1분 하이라이트<br>컷 재편집</div>
+        </div>
+        <div class="mirror-arrow">→</div>
+        <div class="mirror-step">
+          <div class="mirror-step-num">03</div>
+          <div class="mirror-step-label">IG Reels</div>
+          <div class="mirror-step-desc">동일 소스<br>세로 포맷 재편집</div>
+        </div>
+        <div class="mirror-arrow">→</div>
+        <div class="mirror-step">
+          <div class="mirror-step-num">04</div>
+          <div class="mirror-step-label">IG 캐러셀</div>
+          <div class="mirror-step-desc">10장 매거진<br>텍스트 편집</div>
+        </div>
+      </div>
+      
+      <p class="op-block-note">
+        <strong>제작 비용은 1번, 노출은 4번.</strong> 국내 채널과 글로벌 채널은 자막 · 캡션만 다르게 발행하여 제작 리소스를 2배로 늘리지 않고도 두 관객에게 동시 도달합니다.
+      </p>
+    </div>
+    
+    <!-- 캠페인 롱폼 -->
+    <div class="op-block">
+      <div class="op-block-head">
+        <div class="op-block-num">02</div>
+        <div class="op-block-title-wrap">
+          <div class="op-block-label">Campaign Longform · 캠페인 롱폼 기획</div>
+          <h4 class="op-block-title">캠페인마다 <span class="op-hl">단 하나의 롱폼.</span></h4>
+        </div>
+      </div>
+      
+      <p class="op-block-intro">
+        주요 기획전 · 시즌 이벤트에는 <strong>유튜브 롱폼 1편이 콘텐츠 허브</strong>가 됩니다. 전시 오프닝 전 공개되어 티저 역할을 하고, 릴스 · 쇼츠 · 피드 캐러셀로 분해되어 네 개의 채널에서 동시 확산됩니다.
+      </p>
+      
+      <div class="op-campaign-list">
+        <div class="op-campaign-item">
+          <div class="op-campaign-tag">KICKOFF</div>
+          <div class="op-campaign-content">
+            <h5>기획전 프리퀄 다큐</h5>
+            <p>작가 · 큐레이터의 기획 과정을 전시 오픈 2주 전 공개. 관람객의 방문 동기를 만드는 <strong>허브 콘텐츠</strong></p>
+          </div>
+        </div>
+        <div class="op-campaign-item">
+          <div class="op-campaign-tag">SEASON</div>
+          <div class="op-campaign-content">
+            <h5>수직정원 시즌 다큐</h5>
+            <p>봄·여름·가을·겨울 수직정원의 변화를 3분 시즌 영상으로. <strong>을숙도 · 철새 도래와 연계</strong>된 자연 내러티브</p>
+          </div>
+        </div>
+        <div class="op-campaign-item">
+          <div class="op-campaign-tag">EVENT</div>
+          <div class="op-campaign-content">
+            <h5>원데이 바이럴 이벤트</h5>
+            <p>Nelson-Atkins 펭귄 사례 포맷. 을숙도 철새 · 지역 주민 · 반려견 등 <strong>예상 밖의 주체</strong>를 미술관에 들이는 단발성 이벤트</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 🎯 페르소나 확립 제안 - 핵심 인사이트 -->
+    <div class="op-insight">
+      <div class="op-insight-badge">
+        <span class="op-insight-dot"></span>
+        The Core Insight · 핵심 전략
+      </div>
+      <h4 class="op-insight-title">
+        해외의 <span class="insight-hl-acid">캠페인 아이디어</span>를,<br>
+        국내의 <span class="insight-hl-acid">매거진 포맷</span>에 담는다.
+      </h4>
+      <p class="op-insight-lead">
+        부산현대미술관의 페르소나는 <strong>이 두 요소의 결합</strong>에서 완성됩니다.
+      </p>
+      
+      <div class="op-insight-formula">
+        <div class="formula-col left">
+          <div class="formula-label">Input A · 해외 레퍼런스</div>
+          <div class="formula-title">캠페인 아이디어</div>
+          <div class="formula-subtitle">What to say — 무엇을 말할 것인가</div>
+          <ul class="formula-list">
+            <li><strong>MoMA</strong> · 큐레이터와 아티스트를 주인공으로 세우는 다큐 구조</li>
+            <li><strong>Rijksmuseum</strong> · 수장고 · 소장품을 드라마로 만드는 시즌제 시리즈</li>
+            <li><strong>Tate</strong> · "당신에게 이 작품은?" 질문형 인터뷰</li>
+            <li><strong>LACMA</strong> · 시그니처 해시태그로 관람객을 콘텐츠 제작자로</li>
+            <li><strong>Nelson-Atkins</strong> · 예상 밖의 존재를 미술관에 들이는 원데이 바이럴</li>
+          </ul>
+        </div>
+        
+        <div class="formula-plus">
+          <div class="formula-plus-symbol">+</div>
+          <div class="formula-plus-label">결합</div>
+        </div>
+        
+        <div class="formula-col right">
+          <div class="formula-label">Input B · 국내 매거진</div>
+          <div class="formula-title">매거진 포맷</div>
+          <div class="formula-subtitle">How to say — 어떻게 말할 것인가</div>
+          <ul class="formula-list">
+            <li><strong>053mag</strong> · 로컬리티를 트렌디하게 포장하는 타이포 중심 편집</li>
+            <li><strong>probit.mag</strong> · 표지 → 본문 → 엔딩의 캐러셀 완결 구조</li>
+            <li>통일된 그리드 시스템 · 에디토리얼 타이포그래피</li>
+            <li>공지가 아닌 큐레이션의 1인칭 목소리</li>
+            <li>텍스트힙 세대가 <strong>저장 · 공유하고 싶어하는</strong> 감도</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="op-insight-equals">
+        <div class="equals-symbol">=</div>
+        <div class="equals-label">도출</div>
+      </div>
+      
+      <div class="op-insight-result">
+        <div class="result-label">Output · 부산현대미술관의 페르소나</div>
+        <h5 class="result-title">
+          <span class="result-highlight">세계급 미술 담론</span>을 말하되,<br>
+          <span class="result-highlight">MZ가 저장하고 싶은 페이지</span>로 보인다.
+        </h5>
+        <p class="result-desc">
+          해외 미술관의 깊이 있는 캠페인 서사(<strong>Why · 콘텐츠의 골격</strong>)를 국내 매거진형 피드의 감도 높은 편집 언어(<strong>How · 콘텐츠의 외형</strong>)로 풀어낼 때, 부산현대미술관은 <strong>국내 MZ가 자발적으로 팔로우하고, 해외 큐레이터가 레퍼런스로 인용하는 미술관</strong>이 됩니다.
+        </p>
+        <div class="result-pillars">
+          <div class="result-pillar">
+            <div class="result-pillar-num">01</div>
+            <div class="result-pillar-head">MoMA × probit.mag</div>
+            <div class="result-pillar-body">『MoCA Behind』 큐레이터 다큐를 <strong>10장 매거진 캐러셀</strong>로 분해 → "큐레이터의 하루"라는 한 편의 에디토리얼</div>
+          </div>
+          <div class="result-pillar">
+            <div class="result-pillar-num">02</div>
+            <div class="result-pillar-head">Rijksmuseum × 053mag</div>
+            <div class="result-pillar-body">『소장품섬 시즌제』를 <strong>로컬 매거진 톤</strong>으로 — "이번 달 부산이 주목한 작품" 포맷으로 매달 발행</div>
+          </div>
+          <div class="result-pillar">
+            <div class="result-pillar-num">03</div>
+            <div class="result-pillar-head">Tate × probit.mag</div>
+            <div class="result-pillar-body">"당신에게 이 작품은?" 인터뷰를 <strong>표지-본문-엔딩 구조 캐러셀</strong>로 정리 → 저장하고 싶은 질문집</div>
+          </div>
+          <div class="result-pillar">
+            <div class="result-pillar-num">04</div>
+            <div class="result-pillar-head">LACMA · Nelson-Atkins × 053mag</div>
+            <div class="result-pillar-body">#MoCA산책 UGC와 원데이 이벤트를 <strong>로컬 매거진 리포트</strong>로 재편집 → "이번 주 을숙도 모카에서"</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="op-insight-footer">
+        <strong>결과:</strong> 부산현대미술관은 공공기관 공지 톤을 완전히 벗고, <span class="footer-hl">'세계와 지역을 동시에 말하는 매거진형 미술관'</span>이라는 뚜렷한 페르소나를 확립합니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   OPERATION PROPOSAL
+═══════════════════════════════════════════════════════════ */
+.operation-section {
+  padding: 140px 40px 180px;
+  background: var(--forest);
+  color: var(--cream);
+}
+
+.operation-section .section-tag { color: var(--sage-light); }
+.operation-section .domestic-head-title { color: var(--cream); }
+.operation-section .domestic-head-sub { color: var(--pale); }
+.operation-section .domestic-head-sub strong { color: var(--cream); }
+
+.acid-hl {
+  color: var(--acid);
+}
+
+/* Channel Matrix */
+.op-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 60px;
+  margin-bottom: 100px;
+}
+
+.op-platform {
+  background: var(--deep-green);
+  border-radius: 6px;
+  padding: 40px;
+  border: 1px solid var(--moss-dark);
+}
+
+.op-platform-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 28px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--moss-dark);
+}
+
+.op-platform-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--acid);
+  color: var(--forest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.op-platform-info { flex: 1; }
+
+.op-platform-name {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.op-platform-desc {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--sage-light);
+  letter-spacing: -0.005em;
+}
+
+.op-platform-count {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--acid);
+  padding: 6px 12px;
+  border: 1px solid var(--acid);
+  border-radius: 100px;
+}
+
+.op-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.op-channel {
+  padding: 24px 26px;
+  border-radius: 4px;
+  background: var(--forest);
+  border-left: 3px solid var(--moss);
+  transition: border-left-color 0.3s ease, transform 0.3s ease;
+}
+
+.op-channel:hover {
+  transform: translateX(4px);
+}
+
+.op-channel.domestic { border-left-color: var(--sage-light); }
+.op-channel.global { border-left-color: var(--acid); }
+
+.op-channel-flag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--sage);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.op-channel.domestic .op-channel-flag { color: var(--sage-light); }
+.op-channel.global .op-channel-flag { color: var(--acid); }
+
+.op-channel-handle {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.op-channel-new {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 3px 8px;
+  background: var(--acid);
+  color: var(--forest);
+  border-radius: 3px;
+}
+
+.op-channel-desc {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--pale);
+  margin-bottom: 14px;
+  letter-spacing: -0.005em;
+}
+
+.op-channel-desc strong {
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.op-channel-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.op-channel-tags span {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 5px 10px;
+  background: var(--moss-dark);
+  color: var(--sage-light);
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+/* Op Block (Mirror, Campaign) */
+.op-block {
+  background: var(--deep-green);
+  border-radius: 6px;
+  padding: 50px 44px;
+  margin-bottom: 30px;
+  border: 1px solid var(--moss-dark);
+}
+
+.op-block-head {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 28px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--moss-dark);
+}
+
+.op-block-num {
+  font-family: var(--sans-kr);
+  font-weight: 900;
+  font-size: 48px;
+  color: var(--moss);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.op-block-title-wrap { flex: 1; }
+
+.op-block-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sage-light);
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.op-block-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(28px, 3vw, 44px);
+  color: var(--cream);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.op-hl { color: var(--acid); }
+
+/* Mirror Flow */
+.op-mirror-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 16px;
+  align-items: stretch;
+  margin-bottom: 30px;
+}
+
+.mirror-step {
+  background: var(--forest);
+  border-radius: 4px;
+  padding: 28px 24px;
+  text-align: left;
+  transition: transform 0.4s ease, background 0.4s ease;
+}
+
+.mirror-step:hover {
+  transform: translateY(-4px);
+  background: var(--moss-dark);
+}
+
+.mirror-step-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--acid);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+.mirror-step-label {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.mirror-step-desc {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--sage-light);
+  letter-spacing: -0.005em;
+}
+
+.mirror-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans-kr);
+  font-weight: 300;
+  font-size: 28px;
+  color: var(--moss);
+}
+
+.op-block-note {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--pale);
+  padding: 24px 28px;
+  background: var(--forest);
+  border-left: 3px solid var(--acid);
+  border-radius: 4px;
+  letter-spacing: -0.005em;
+}
+
+.op-block-note strong {
+  font-weight: 700;
+  color: var(--acid);
+}
+
+/* Campaign */
+.op-block-intro {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--pale);
+  margin-bottom: 32px;
+  letter-spacing: -0.005em;
+  max-width: 1100px;
+}
+
+.op-block-intro strong {
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.op-campaign-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.op-campaign-item {
+  background: var(--forest);
+  border-radius: 4px;
+  padding: 28px 26px;
+  transition: transform 0.4s ease;
+  border-top: 2px solid var(--acid);
+}
+
+.op-campaign-item:hover {
+  transform: translateY(-4px);
+}
+
+.op-campaign-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--acid);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.op-campaign-content h5 {
+  font-family: var(--sans-kr);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.op-campaign-content p {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--sage-light);
+  letter-spacing: -0.005em;
+}
+
+.op-campaign-content p strong {
+  font-weight: 700;
+  color: var(--acid);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CORE INSIGHT - 페르소나 확립 핵심 전략
+═══════════════════════════════════════════════════════════ */
+.op-insight {
+  margin-top: 80px;
+  background: linear-gradient(135deg, var(--deep-green) 0%, var(--forest) 100%);
+  border: 1px solid var(--acid);
+  border-radius: 8px;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.op-insight::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--acid) 0%, transparent 60%);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.op-insight-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: var(--acid);
+  color: var(--forest);
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.op-insight-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--forest);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.op-insight-title {
+  font-family: var(--sans-kr);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 72px);
+  color: var(--cream);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.insight-hl-acid {
+  font-weight: 900;
+  color: var(--acid);
+  position: relative;
+  display: inline-block;
+}
+
+.insight-hl-acid::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 100%;
+  height: 10px;
+  background: var(--acid);
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.op-insight-lead {
+  font-family: var(--sans-kr);
+  font-weight: 500;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.6;
+  color: var(--sage-light);
+  margin-bottom: 60px;
+  letter-spacing: -0.015em;
+  position: relative;
+}
+
+.op-insight-lead strong {
+  font-weight: 800;
+  color: var(--acid);
+}
+
+/* Formula */
+.op-insight-formula {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 30px;
+  align-items: stretch;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.formula-col {
+  background: var(--forest);
+  border-radius: 6px;
+  padding: 40px 36px;
+  border: 1px solid var(--moss-dark);
+}
+
+.formula-col.left { border-top: 3px solid var(--sage-light); }
+.formula-col.right { border-top: 3px solid var(--acid); }
+
+.formula-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.formula-col.left .formula-label { color: var(--sage-light); }
+.formula-col.right .formula-label { color: var(--acid); }
+
+.formula-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 30px;
+  color: var(--cream);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.formula-subtitle {
+  font-family: var(--sans-kr);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--moss);
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--moss-dark);
+}
+
+.formula-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formula-list li {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--pale);
+  letter-spacing: -0.005em;
+  padding-left: 16px;
+  position: relative;
+}
+
+.formula-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--moss);
+}
+
+.formula-col.right .formula-list li::before { background: var(--acid); }
+
+.formula-list li strong {
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.formula-plus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 80px;
+}
+
+.formula-plus-symbol {
+  font-family: var(--sans-kr);
+  font-weight: 300;
+  font-size: 60px;
+  color: var(--acid);
+  line-height: 1;
+}
+
+.formula-plus-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--sage);
+  text-transform: uppercase;
+}
+
+/* Equals */
+.op-insight-equals {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 50px 0;
+}
+
+.equals-symbol {
+  font-family: var(--sans-kr);
+  font-weight: 300;
+  font-size: 80px;
+  color: var(--acid);
+  line-height: 0.8;
+}
+
+.equals-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: var(--sage);
+  text-transform: uppercase;
+}
+
+/* Result */
+.op-insight-result {
+  background: var(--forest);
+  border: 1px solid var(--acid);
+  border-radius: 6px;
+  padding: 60px 50px;
+  position: relative;
+}
+
+.result-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--acid);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.result-title {
+  font-family: var(--sans-kr);
+  font-weight: 300;
+  font-size: clamp(28px, 3.5vw, 56px);
+  color: var(--cream);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 32px;
+}
+
+.result-highlight {
+  font-weight: 900;
+  color: var(--acid);
+}
+
+.result-desc {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--pale);
+  margin-bottom: 50px;
+  letter-spacing: -0.005em;
+  max-width: 1100px;
+}
+
+.result-desc strong {
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.result-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.result-pillar {
+  background: var(--deep-green);
+  border-radius: 4px;
+  padding: 28px 28px;
+  border-left: 3px solid var(--acid);
+  transition: transform 0.4s ease;
+}
+
+.result-pillar:hover {
+  transform: translateY(-4px);
+}
+
+.result-pillar-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--acid);
+  margin-bottom: 10px;
+}
+
+.result-pillar-head {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.result-pillar-body {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--sage-light);
+  letter-spacing: -0.005em;
+}
+
+.result-pillar-body strong {
+  font-weight: 700;
+  color: var(--cream);
+}
+
+/* Insight Footer Statement */
+.op-insight-footer {
+  margin-top: 50px;
+  padding: 28px 36px;
+  background: var(--acid);
+  color: var(--forest);
+  border-radius: 4px;
+  font-family: var(--sans-kr);
+  font-weight: 500;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+.op-insight-footer strong {
+  font-weight: 800;
+}
+
+.footer-hl {
+  font-weight: 800;
+  border-bottom: 2px solid var(--forest);
+  padding-bottom: 2px;
+}
+
+@media (max-width: 900px) {
+  .op-matrix { grid-template-columns: 1fr; }
+  .op-mirror-flow { grid-template-columns: 1fr; }
+  .mirror-arrow { transform: rotate(90deg); padding: 8px 0; }
+  .op-campaign-list { grid-template-columns: 1fr; }
+  .op-insight { padding: 50px 30px; }
+  .op-insight-formula { grid-template-columns: 1fr; }
+  .formula-plus { padding-top: 0; flex-direction: row; gap: 12px; }
+  .result-pillars { grid-template-columns: 1fr; }
+  .op-block { padding: 40px 28px; }
+}
+</style>
+
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DIRECTION — PILLARS
+═══════════════════════════════════════════════════════════ */
+.pillars-section {
+  padding: 140px 40px 100px;
+  background: var(--paper);
+}
+
+.pillars-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+  min-height: 720px;
+}
+
+.pillar {
+  padding: 50px 44px;
+  background: var(--cream);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.pillar:hover { transform: translateY(-6px); }
+
+.pillar-main {
+  grid-row: 1 / 3;
+  background: var(--forest);
+  color: var(--cream);
+  padding: 70px 54px;
+  background-image:
+    radial-gradient(circle at 100% 0%, var(--moss-dark) 0%, transparent 50%),
+    radial-gradient(circle at 0% 100%, var(--moss) 0%, transparent 40%);
+}
+
+.pillar-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--moss);
+  margin-bottom: 12px;
+}
+
+.pillar-main .pillar-num { color: var(--acid); }
+
+.pillar-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--rust);
+  margin-bottom: 30px;
+}
+
+.pillar-main .pillar-label { color: var(--sage-light); }
+
+/* 카드 타이틀 - 굵기(800) + 색(forest/cream) */
+.pillar-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--forest);
+  margin-bottom: 8px;
+}
+
+.pillar-main .pillar-title {
+  color: var(--cream);
+  font-size: clamp(40px, 4.5vw, 68px);
+}
+
+.pillar-en {
+  font-family: var(--sans-kr);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--moss);
+  margin-bottom: 30px;
+  letter-spacing: -0.01em;
+}
+
+.pillar-main .pillar-en {
+  color: var(--sage-light);
+  font-size: 20px;
+}
+
+.pillar-desc {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--grey);
+  flex: 1;
+  margin-bottom: 24px;
+  letter-spacing: -0.005em;
+}
+
+.pillar-desc strong {
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.pillar-main .pillar-desc {
+  color: var(--pale);
+  font-size: 16px;
+}
+
+.pillar-main .pillar-desc strong {
+  color: var(--cream);
+  font-weight: 700;
+}
+
+.pillar-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.pillar-tags span {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 7px 12px;
+  background: var(--paper);
+  color: var(--forest);
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+.pillar-main .pillar-tags span {
+  background: var(--moss-dark);
+  color: var(--sage-light);
+}
+
+/* Audience */
+.audience-section {
+  padding: 140px 40px 100px;
+  background: var(--cream);
+}
+
+.audience-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.audience-card {
+  padding: 60px 50px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.audience-card.global {
+  background: var(--forest);
+  color: var(--cream);
+  background-image: radial-gradient(circle at 100% 0%, var(--moss-dark) 0%, transparent 50%);
+}
+
+.audience-card.domestic {
+  background: var(--paper);
+  border-top: 4px solid var(--moss-dark);
+}
+
+.audience-flag {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: var(--moss);
+  margin-bottom: 20px;
+}
+
+.audience-card.global .audience-flag { color: var(--acid); }
+
+/* 오디언스 타이틀 - 굵기(800) + 색 */
+.audience-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(32px, 3.5vw, 52px);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
+}
+
+.audience-card.global .audience-title { color: var(--cream); }
+.audience-card.domestic .audience-title { color: var(--forest); }
+
+.audience-sub {
+  font-family: var(--sans-kr);
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid;
+  letter-spacing: -0.01em;
+}
+
+.audience-card.global .audience-sub {
+  color: var(--sage-light);
+  border-bottom-color: var(--moss-dark);
+}
+.audience-card.domestic .audience-sub {
+  color: var(--moss);
+  border-bottom-color: var(--line);
+}
+
+.audience-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  flex: 1;
+}
+
+.audience-block-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.audience-card.global .audience-block-label { color: var(--sage-light); }
+.audience-card.domestic .audience-block-label { color: var(--moss); }
+
+.audience-block p {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.75;
+  letter-spacing: -0.005em;
+}
+
+.audience-card.global .audience-block p { color: var(--pale); }
+.audience-card.domestic .audience-block p { color: var(--grey); }
+
+.audience-block strong {
+  font-weight: 700;
+}
+
+.audience-card.global strong { color: var(--acid); }
+.audience-card.domestic strong { color: var(--forest); }
+
+/* Tone */
+.tone-section {
+  padding: 140px 40px 100px;
+  background: var(--paper);
+}
+
+.tone-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.tone-card {
+  background: var(--cream);
+  padding: 50px 40px;
+  border-radius: 4px;
+  border-top: 3px solid var(--moss-dark);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              border-top-color 0.4s ease;
+}
+
+.tone-card:hover {
+  transform: translateY(-6px);
+  border-top-color: var(--acid);
+}
+
+.tone-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--moss);
+  margin-bottom: 16px;
+}
+
+.tone-title {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: clamp(26px, 2.5vw, 38px);
+  color: var(--forest);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.tone-subtitle {
+  font-family: var(--sans-kr);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--moss);
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.tone-desc {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--grey);
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+  letter-spacing: -0.005em;
+}
+
+.tone-desc strong {
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.tone-swatches {
+  display: flex;
+  gap: 8px;
+}
+
+.swatch {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  position: relative;
+  flex: 1;
+  transition: transform 0.3s ease;
+}
+
+.swatch:hover { transform: scale(1.1); }
+
+.swatch::after {
+  content: attr(data-code);
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--moss);
+  letter-spacing: 1px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-transform: uppercase;
+}
+
+.swatch:hover::after { opacity: 1; }
+
+.tone-type-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.type-sample {
+  font-family: var(--sans-kr);
+  font-size: 24px;
+  color: var(--forest);
+  letter-spacing: -0.02em;
+}
+
+.type-sample.weight-900 { font-weight: 900; }
+.type-sample.weight-500 { font-weight: 500; }
+.type-sample.weight-300 { font-weight: 300; color: var(--grey); }
+
+.type-mono {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--moss);
+  letter-spacing: 2px;
+  padding-top: 4px;
+}
+
+.tone-voice {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.voice-before,
+.voice-after {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans-kr);
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.voice-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.voice-before {
+  color: var(--rust);
+  opacity: 0.6;
+}
+
+.voice-before .voice-icon {
+  background: transparent;
+  color: var(--rust);
+  border: 1px solid var(--rust);
+}
+
+.voice-before .voice-text {
+  text-decoration: line-through;
+  text-decoration-color: var(--rust);
+}
+
+.voice-after {
+  color: var(--forest);
+  font-weight: 600;
+}
+
+.voice-after .voice-icon {
+  background: var(--forest);
+  color: var(--acid);
+}
+
+/* Roadmap */
+.roadmap-section {
+  padding: 140px 40px 160px;
+  background: var(--forest);
+  color: var(--cream);
+}
+
+.roadmap-section .section-tag { color: var(--sage-light); }
+.roadmap-section .domestic-head-title { color: var(--cream); }
+.roadmap-section .domestic-head-sub { color: var(--pale); }
+.roadmap-section .domestic-head-sub strong { color: var(--cream); }
+
+.acid-hl {
+  color: var(--acid);
+}
+
+.roadmap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.roadmap-item {
+  display: grid;
+  grid-template-columns: 160px 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 28px 40px;
+  background: var(--deep-green);
+  border-radius: 4px;
+  transition: transform 0.4s ease, background 0.4s ease;
+}
+
+.roadmap-item:hover {
+  transform: translateX(8px);
+  background: var(--moss-dark);
+}
+
+.roadmap-item.highlight {
+  background: var(--acid);
+  color: var(--forest);
+}
+
+.roadmap-item.highlight:hover { background: var(--acid); }
+
+.roadmap-week {
+  font-family: var(--sans-kr);
+  font-weight: 800;
+  font-size: 36px;
+  color: var(--sage-light);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.roadmap-item.highlight .roadmap-week { color: var(--forest); }
+
+.roadmap-phase {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--acid);
+  margin-bottom: 6px;
+}
+
+.roadmap-item.highlight .roadmap-phase { color: var(--forest); font-weight: 700; }
+
+.roadmap-content h4 {
+  font-family: var(--sans-kr);
+  font-weight: 700;
+  font-size: 21px;
+  color: var(--cream);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.roadmap-item.highlight .roadmap-content h4 { color: var(--forest); font-weight: 800; }
+
+.roadmap-content p {
+  font-family: var(--sans-kr);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--pale);
+  letter-spacing: -0.005em;
+}
+
+.roadmap-item.highlight .roadmap-content p { color: var(--forest); opacity: 0.75; }
+
+.roadmap-bar {
+  width: 100%;
+  height: 2px;
+  background: var(--moss-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.roadmap-item.highlight .roadmap-bar { background: var(--forest); opacity: 0.3; }
+
+.roadmap-fill {
+  height: 100%;
+  background: var(--acid);
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.roadmap-item.highlight .roadmap-fill { background: var(--forest); }
+
+.roadmap-item.revealed .roadmap-fill { width: var(--fill); }
+
+@media (max-width: 900px) {
+  .pillars-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .pillar-main { grid-row: auto; }
+  .audience-grid { grid-template-columns: 1fr; }
+  .tone-grid { grid-template-columns: 1fr; }
+  .roadmap-item { grid-template-columns: 1fr; gap: 16px; padding: 24px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CLOSING
+═══════════════════════════════════════════════════════════ */
+.closing {
+  min-height: 100vh;
+  background: var(--forest);
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 40px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.closing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, var(--moss-dark) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, var(--moss) 0%, transparent 50%);
+  opacity: 0.5;
+  animation: closing-float 20s ease-in-out infinite;
+}
+
+@keyframes closing-float {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+}
+
+.closing-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+}
+
+.closing-star {
+  font-size: 36px;
+  color: var(--acid);
+  margin-bottom: 40px;
+  animation: closing-spin 20s linear infinite;
+  display: inline-block;
+}
+
+@keyframes closing-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.closing-eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 8px;
+  color: var(--sage-light);
+  margin-bottom: 50px;
+  text-transform: uppercase;
+}
+
+/* 클로징 후킹 - 한글 강조 3축 극대화: 굵기(300→900) + 색(cream→acid) */
+.closing-hook {
+  font-family: var(--sans-kr);
+  font-weight: 300;
+  font-size: clamp(52px, 9vw, 160px);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  color: var(--cream);
+  margin-bottom: 40px;
+}
+
+.closing-hook .acid-big {
+  font-weight: 900;
+  color: var(--acid);
+  position: relative;
+  display: inline-block;
+}
+
+.closing-hook .acid-big::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 100%;
+  height: 12px;
+  background: var(--acid);
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.closing-sub {
+  font-family: var(--sans-kr);
+  font-weight: 500;
+  font-size: clamp(18px, 1.8vw, 26px);
+  line-height: 1.6;
+  color: var(--sage-light);
+  margin-bottom: 80px;
+  letter-spacing: -0.015em;
+}
+
+.closing-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 44px;
+  background: var(--acid);
+  color: var(--forest);
+  font-family: var(--sans-kr);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  border-radius: 100px;
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: none;
+}
+
+.closing-cta:hover {
+  transform: translateY(-4px);
+  background: var(--cream);
+}
+
+.closing-cta::after {
+  content: "→";
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.closing-cta:hover::after { transform: translateX(6px); }
+
+.closing-brand {
+  margin-top: 100px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 6px;
+  color: var(--moss);
+  text-transform: uppercase;
+}
+
+footer.footer {
+  padding: 60px 40px 40px;
+  background: var(--ink);
+  color: var(--moss);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>© 2026 689COMPANY Holdings</div>
+    <div>Proposal for Busan Museum of Contemporary Art</div>
+    <div>A landing page, not a pitch deck.</div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// LOADER
+// ═══════════════════════════════════════════════════════════
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelector('.loader').classList.add('done');
+    setTimeout(() => {
+      document.querySelector('.loader').style.display = 'none';
+    }, 1000);
+  }, 2500);
+});
+
+// ═══════════════════════════════════════════════════════════
+// CUSTOM CURSOR
+// ═══════════════════════════════════════════════════════════
+const cursor = document.querySelector('.cursor');
+const cursorRing = document.querySelector('.cursor-ring');
+
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.15;
+  ringY += (mouseY - ringY) * 0.15;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+const hoverables = document.querySelectorAll('a, button, .manifesto-col, .sub-channel, .diag-card, .pillar, .tone-card, .mag-card, .closing-cta, .swatch, .issue-row, .roadmap-item');
+hoverables.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.classList.add('hover');
+    cursorRing.classList.add('hover');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.classList.remove('hover');
+    cursorRing.classList.remove('hover');
+  });
+});
+
+// ═══════════════════════════════════════════════════════════
+// LENIS SMOOTH SCROLL
+// ═══════════════════════════════════════════════════════════
+let lenis;
+if (typeof Lenis !== 'undefined') {
+  lenis = new Lenis({
+    duration: 1.3,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    wheelMultiplier: 1,
+  });
+  
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+  
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const targetId = a.getAttribute('href');
+      if (targetId && targetId !== '#') {
+        e.preventDefault();
+        const target = document.querySelector(targetId);
+        if (target) lenis.scrollTo(target, { offset: -20, duration: 1.6 });
+      }
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// GSAP + SCROLLTRIGGER
+// ═══════════════════════════════════════════════════════════
+gsap.registerPlugin(ScrollTrigger);
+
+if (lenis) {
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+}
+
+// Reveal lines
+document.querySelectorAll('.chapter-title').forEach(title => {
+  const lines = title.querySelectorAll('.reveal-line');
+  lines.forEach((line, i) => {
+    line.dataset.delay = i * 120;
+  });
+});
+
+document.querySelectorAll('.reveal-line').forEach(el => {
+  ScrollTrigger.create({
+    trigger: el,
+    start: 'top 85%',
+    onEnter: () => {
+      const delay = parseInt(el.dataset.delay || 0);
+      setTimeout(() => el.classList.add('revealed'), delay);
+    }
+  });
+});
+
+// Ref cards reveal
+document.querySelectorAll('.ref-card').forEach(card => {
+  ScrollTrigger.create({
+    trigger: card,
+    start: 'top 80%',
+    onEnter: () => card.classList.add('revealed')
+  });
+});
+
+// Mag cards reveal
+document.querySelectorAll('.mag-card').forEach(card => {
+  ScrollTrigger.create({
+    trigger: card,
+    start: 'top 80%',
+    onEnter: () => card.classList.add('revealed')
+  });
+});
+
+// Roadmap bars
+document.querySelectorAll('.roadmap-item').forEach(item => {
+  ScrollTrigger.create({
+    trigger: item,
+    start: 'top 85%',
+    onEnter: () => item.classList.add('revealed')
+  });
+});
+
+// Fade-up
+gsap.utils.toArray('.diag-card, .sub-channel, .pillar, .tone-card, .audience-card, .issue-row').forEach((el) => {
+  gsap.from(el, {
+    opacity: 0,
+    y: 60,
+    duration: 1.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 85%',
+      toggleActions: 'play none none none'
+    }
+  });
+});
+
+// Chapter number parallax
+gsap.utils.toArray('.chapter-num-big').forEach(el => {
+  gsap.to(el, {
+    y: -80,
+    scrollTrigger: {
+      trigger: el.closest('.chapter-divider'),
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 1
+    }
+  });
+});
+
+// Hero parallax
+gsap.to('.hero-hook', {
+  y: -80,
+  opacity: 0.4,
+  scrollTrigger: {
+    trigger: '.hero',
+    start: 'top top',
+    end: 'bottom top',
+    scrub: 1
+  }
+});
+
+gsap.to('.hero-sub', {
+  y: -40,
+  opacity: 0,
+  scrollTrigger: {
+    trigger: '.hero',
+    start: 'top top',
+    end: 'bottom top',
+    scrub: 1
+  }
+});
+
+// Nav hide on scroll down
+let lastScroll = 0;
+const nav = document.querySelector('.nav');
+ScrollTrigger.create({
+  start: 'top top',
+  onUpdate: (self) => {
+    const scroll = self.scroll();
+    if (scroll > lastScroll && scroll > 300) {
+      nav.style.transform = 'translateY(-100%)';
+    } else {
+      nav.style.transform = 'translateY(0)';
+    }
+    lastScroll = scroll;
+  }
+});
+</script>
+
+</body>
+</html>
